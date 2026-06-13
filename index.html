@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+  <html lang="ko">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YJS Games</title>
+  <meta name="description" content="YJS Games — 환생 방치형 RPG를 만드는 1인 게임 스튜디오. 환생용사 방치하기, 환생대장간 방치하기 서비스 중.">
+  <style>
+  :root{
+  --bg:#0f1118; --panel:#171a24; --panel2:#1e2230; --line:#272c3a;
+--text:#e8eaf0; --muted:#9aa3b5; --brand:#7c5cff; --brand2:#22d3ee; --good:#34d399;
+  }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
+background:var(--bg); color:var(--text); line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+header{
+  padding:64px 0 40px; text-align:center;
+background:radial-gradient(120% 140% at 50% -10%, rgba(124,92,255,.25), transparent 60%);
+border-bottom:1px solid var(--line);
+}
+.logo{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:30px;letter-spacing:-.5px}
+.logo .mark{
+width:40px;height:40px;border-radius:11px;
+background:linear-gradient(135deg,var(--brand),var(--brand2));
+display:grid;place-items:center;color:#0f1118;font-weight:900;font-size:20px;
+}
+.tagline{margin-top:14px;color:var(--muted);font-size:16px}
+h2{font-size:15px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin:48px 0 16px;font-weight:700}
+.games{display:grid;gap:16px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;
+display:flex;flex-wrap:wrap;align-items:center;gap:18px;transition:border-color .2s, transform .2s;
+}
+.card:hover{border-color:var(--brand);transform:translateY(-2px)}
+.card .info{flex:1 1 240px;min-width:0}
+.card h3{margin:0;font-size:19px;font-weight:700}
+.card .meta{color:var(--muted);font-size:13.5px;margin-top:4px}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.badge.live{background:rgba(52,211,153,.15);color:var(--good)}
+.badge.dev{background:rgba(154,163,181,.15);color:var(--muted)}
+.links{display:flex;gap:9px;flex-wrap:wrap}
+.store{
+display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;
+padding:9px 15px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);
+transition:background .15s,border-color .15s;white-space:nowrap;
+}
+.store:hover{background:#262b3b;border-color:var(--brand)}
+.store.soon{opacity:.5;pointer-events:none}
+footer{margin:64px 0 40px;padding-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.foot-links{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:18px}
+.foot-links a{color:var(--text);border-bottom:1px solid transparent;transition:border-color .15s}
+.foot-links a:hover{border-color:var(--brand)}
+  .copy{font-size:13px;color:var(--muted)}
+</style>
+  </head>
+  <body>
+  <header>
+  <div class="wrap">
+  <div class="logo"><span class="mark">Y</span>YJS Games</div>
+  <p class="tagline">한 번 더 환생해서 더 강해지는, 방치형 RPG를 만듭니다.</p>
+  </div>
+  </header>
+  <main class="wrap">
+  <h2>서비스 중인 게임</h2>
+  <div class="games">
+  <div class="card">
+  <div class="info">
+  <h3>환생용사 방치하기 <span class="badge live">서비스 중</span></h3>
+  <div class="meta">2025년 12월 출시 · 방치형 RPG</div>
+  </div>
+  <div class="links">
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener">▶ Google Play</a>
+  <a class="store" href="https://apps.apple.com/app/id6757685476" target="_blank" rel="noopener"> App Store</a>
+  </div>
+  </div>
+  <div class="card">
+  <div class="info">
+  <h3>환생대장간 방치하기 <span class="badge live">서비스 중</span></h3>
+  <div class="meta">2026년 3월 출시 · 운빨 검 키우기 방치형 RPG</div>
+  </div>
+  <div class="links">
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" target="_blank" rel="noopener">▶ Google Play</a>
+  <a class="store" href="https://apps.apple.com/app/id6760809332" target="_blank" rel="noopener"> App Store</a>
+  </div>
+  </div>
+  </div>
+  <h2>개발 중</h2>
+  <div class="games">
+  <div class="card">
+  <div class="info">
+  <h3>환생용사단 방치하기 <span class="badge dev">개발 중</span></h3>
+  <div class="meta">출시 준비 중 · 곧 만나요</div>
+  </div>
+  <div class="links">
+  <span class="store soon">Coming Soon</span>
+  </div>
+  </div>
+  </div>
+  </main>
+  <footer class="wrap">
+  <div class="foot-links">
+  <a href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">개인정보처리방침</a>
+  <a href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">계정 · 데이터 삭제 요청</a>
+  <a href="mailto:yjs221126@gmail.com">문의 yjs221126@gmail.com</a>
+  </div>
+  <div class="copy">© 2026 YJS Games. All rights reserved.</div>
+</footer>
+</body>
+</html>
