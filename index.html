@@ -58,14 +58,32 @@ body{
 
 /* --- dev links bar --- */
 .dev-links{
-  display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
-  padding:10px 20px 6px;
+  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+  padding:12px 20px 8px;
 }
 .dev-links a{
-  color:#8a90a4;font-size:13px;text-decoration:none;
-  border-bottom:1px solid transparent;transition:color .15s,border-color .15s;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:40px;
+  padding:10px 15px;
+  border-radius:10px;
+  color:#c8ccd8;
+  background:#15161d;
+  border:1px solid #2c3040;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  transition:background .15s,color .15s,border-color .15s,transform .12s;
 }
-.dev-links a:hover{color:#c8ccd8;border-color:#555a6a}
+.dev-links a:hover{
+  color:#f0f1f5;
+  background:#1c1e28;
+  border-color:#555a6a;
+  transform:translateY(-1px);
+}
+.dev-links svg{flex-shrink:0}
 
 /* --- game cards grid --- */
 .games{
@@ -102,7 +120,27 @@ body{
 /* card body */
 .card-body{padding:0 24px 28px;text-align:center}
 .card-body h2{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  flex-wrap:wrap;
   font-size:20px;font-weight:700;color:#f0f1f5;margin-bottom:8px;
+}
+.release-year{
+  display:inline-flex;
+  align-items:center;
+  min-height:18px;
+  padding:3px 7px;
+  border-radius:999px;
+  color:#ffd166;
+  background:#3a2d16;
+  border:1px solid #6d5222;
+  font-size:10px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:0;
+  white-space:nowrap;
 }
 .btn-badge{
   display:inline-flex;
@@ -257,8 +295,18 @@ footer{
 
 <!-- Developer store links -->
 <nav class="dev-links">
-  <a href="https://play.google.com/store/apps/dev?id=9126505555578543741" target="_blank" rel="noopener">Google Play Developer</a>
-  <a href="https://apps.apple.com/developer/yangjin-lee/id1868279559" target="_blank" rel="noopener">App Store Developer</a>
+  <a href="https://play.google.com/store/apps/dev?id=9126505555578543741" target="_blank" rel="noopener">
+    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
+    Google Play Developer
+  </a>
+  <a href="https://apps.apple.com/developer/yangjin-lee/id1868279559" target="_blank" rel="noopener">
+    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" aria-hidden="true"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
+    App Store Developer
+  </a>
+  <a href="https://yjsgames.itch.io/" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2.2 3.1h13.6l.8 3.4c.1.9-.5 1.8-1.4 2-.7.1-1.4-.2-1.8-.8-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1.1.9-1.8.8-.9-.2-1.5-1.1-1.4-2l.8-3.4Z" fill="#ff7a85"/><path d="M4 9.6c.5-.1 1-.4 1.4-.8.6.5 1.2.8 2 .8.8 0 1.4-.3 2-.8.6.5 1.2.8 2 .8.7 0 1.4-.3 2-.8.2.3.5.5.8.6v4.8c0 .4-.3.7-.7.7h-9c-.4 0-.7-.3-.7-.7V9.6Z" fill="#ff7a85"/><path d="M7 11.1h4v1.2H7v-1.2Z" fill="#3f2227"/></svg>
+    itch.io
+  </a>
 </nav>
 
 <!-- Game cards -->
@@ -272,7 +320,7 @@ footer{
       </a>
     </div>
     <div class="card-body">
-      <h2 data-i18n="starshipTitle">환생 우주선 방치하기</h2>
+      <h2><span data-i18n="starshipTitle">환생 우주선 방치하기</span><span class="release-year" data-i18n="starshipYear">2026</span></h2>
       <p class="desc" data-i18n="starshipDesc">모듈을 연결해 함선을 키우는 방치형 우주 디펜스.</p>
       <div class="store-btns">
         <span class="store-btn disabled" data-i18n="googlePlaySoon">Google Play 준비 중</span>
@@ -284,30 +332,7 @@ footer{
     </div>
   </article>
 
-  <!-- Card 2: Idle Hero Reborn -->
-  <article class="card">
-    <div class="card-icon">
-      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" data-ios-href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener" aria-label="Idle Hero Reborn store page">
-        <img src="assets/icon-idle-hero-reborn.png" alt="Idle Hero Reborn icon" width="100" height="100">
-      </a>
-    </div>
-    <div class="card-body">
-      <h2>Idle Hero Reborn</h2>
-      <p class="desc" data-i18n="idleHeroDesc">Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.</p>
-      <div class="store-btns">
-        <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener">
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
-          Google Play
-        </a>
-        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-          App Store
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 3: Rebirth Forge Idle -->
+  <!-- Card 2: Rebirth Forge Idle -->
   <article class="card">
     <div class="card-icon">
       <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" data-ios-href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener" aria-label="Rebirth Forge Idle store page">
@@ -315,7 +340,7 @@ footer{
       </a>
     </div>
     <div class="card-body">
-      <h2>Rebirth Forge Idle</h2>
+      <h2><span data-i18n="rebirthForgeTitle">환생대장간 방치하기: 운빨 검 키우기</span><span class="release-year" data-i18n="rebirthForgeYear">2026</span></h2>
       <p class="desc" data-i18n="rebirthForgeDesc">Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.</p>
       <div class="store-btns">
         <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" target="_blank" rel="noopener">
@@ -323,6 +348,29 @@ footer{
           Google Play
         </a>
         <a class="store-btn btn-as" href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener">
+          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
+          App Store
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 3: Idle Hero Reborn -->
+  <article class="card">
+    <div class="card-icon">
+      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" data-ios-href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener" aria-label="Idle Hero Reborn store page">
+        <img src="assets/icon-idle-hero-reborn.png" alt="Idle Hero Reborn icon" width="100" height="100">
+      </a>
+    </div>
+    <div class="card-body">
+      <h2><span data-i18n="idleHeroTitle">환생용사 방치하기</span><span class="release-year" data-i18n="idleHeroYear">2025</span></h2>
+      <p class="desc" data-i18n="idleHeroDesc">Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.</p>
+      <div class="store-btns">
+        <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
+          Google Play
+        </a>
+        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener">
           <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
           App Store
         </a>
@@ -361,12 +409,17 @@ footer{
 const i18n={
   ko:{
     title:"YJS Games",
-    description:"YJS Games — 환생 우주선 방치하기, Idle Hero Reborn, Rebirth Forge Idle 게임과 공식 지원 정보를 제공합니다.",
+    description:"YJS Games — 환생 우주선 방치하기, 환생대장간 방치하기, 환생용사 방치하기 게임과 공식 지원 정보를 제공합니다.",
     tagline:"Mobile Idle Games Studio",
     starshipTitle:"환생 우주선 방치하기",
+    starshipYear:"2026",
     starshipDesc:"모듈을 연결해 함선을 키우는 방치형 우주 디펜스.",
-    idleHeroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
+    rebirthForgeTitle:"환생대장간 방치하기: 운빨 검 키우기",
+    rebirthForgeYear:"2026",
     rebirthForgeDesc:"운 기반 방치형 제작 — 검을 재련하고 영구 환생 성장을 해금하세요.",
+    idleHeroTitle:"환생용사 방치하기",
+    idleHeroYear:"2025",
+    idleHeroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
     googlePlaySoon:"Google Play 준비 중",
     appStoreSoon:"App Store 준비 중",
     supportHeading:"지원",
@@ -380,9 +433,14 @@ const i18n={
     description:"YJS Games provides Reborn Starship Idle, Idle Hero Reborn, Rebirth Forge Idle, and official support information.",
     tagline:"Mobile Idle Games Studio",
     starshipTitle:"Reborn Starship Idle",
+    starshipYear:"2026",
     starshipDesc:"Link modules, empower energy bolts, and push through idle space battles.",
-    idleHeroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
+    rebirthForgeTitle:"Rebirth Forge Idle",
+    rebirthForgeYear:"2026",
     rebirthForgeDesc:"Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.",
+    idleHeroTitle:"Idle Hero Reborn",
+    idleHeroYear:"2025",
+    idleHeroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
     googlePlaySoon:"Google Play soon",
     appStoreSoon:"App Store soon",
     supportHeading:"Support",
