@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YJS Games Support</title>
+<meta name="description" content="YJS Games 공식 지원 페이지. 앱 이용 문의, 오류 제보, 개인정보처리방침, 계정 및 데이터 삭제 안내를 제공합니다.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  min-height:100%;
+  color:#e0e2ea;
+  background:#0e0f14;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+.page{
+  max-width:900px;
+  margin:0 auto;
+  padding:48px 20px 40px;
+}
+.top-link{
+  display:inline-flex;
+  margin-bottom:28px;
+  color:#8a90a4;
+  font-size:13px;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+.top-link:hover{color:#c8ccd8;border-color:#555a6a}
+header{
+  margin-bottom:28px;
+  padding-bottom:22px;
+  border-bottom:1px solid #23262f;
+}
+h1{
+  color:#f0f1f5;
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:8px;
+}
+.lead{
+  color:#9aa3b5;
+  max-width:680px;
+  font-size:15px;
+}
+.section{
+  border:1px solid #23262f;
+  background:#15161d;
+  padding:24px;
+  margin-bottom:18px;
+}
+.section h2{
+  color:#f0f1f5;
+  font-size:18px;
+  margin-bottom:12px;
+}
+.section p,
+.section li{
+  color:#9aa3b5;
+  font-size:14px;
+}
+.contact-email{
+  display:inline-flex;
+  margin-top:14px;
+  min-height:44px;
+  align-items:center;
+  justify-content:center;
+  padding:10px 18px;
+  border-radius:8px;
+  background:#1a2440;
+  border:1px solid #253660;
+  color:#8fc0ff;
+  font-weight:800;
+  text-decoration:none;
+}
+.link-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.link-button{
+  display:inline-flex;
+  min-height:42px;
+  align-items:center;
+  justify-content:center;
+  padding:10px 16px;
+  border-radius:8px;
+  background:#1c1e28;
+  border:1px solid #2c3040;
+  color:#c8ccd8;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+}
+.link-button:hover,
+.contact-email:hover{
+  filter:brightness(1.08);
+}
+.app-list{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+}
+.app-list li{
+  background:#181a22;
+  border:1px solid #23262f;
+  padding:14px;
+}
+.app-list strong{
+  display:block;
+  color:#f0f1f5;
+  font-size:14px;
+  margin-bottom:4px;
+}
+footer{
+  color:#4a5068;
+  font-size:12px;
+  text-align:center;
+  padding-top:14px;
+}
+@media(max-width:720px){
+  .page{padding-top:34px}
+  h1{font-size:25px}
+  .section{padding:20px 16px}
+  .app-list{grid-template-columns:1fr}
+  .link-row{flex-direction:column}
+  .link-button,.contact-email{width:100%}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <a class="top-link" href="../">← YJS Games home</a>
+
+  <header>
+    <h1>YJS Games Support</h1>
+    <p class="lead">YJS Games 모바일 게임 이용 중 발생한 문제, 결제/광고/저장 관련 문의, 일반 피드백을 접수하는 공식 지원 페이지입니다.</p>
+  </header>
+
+  <section class="section" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact</h2>
+    <p>앱 문제, 기능 제안, 일반 피드백은 아래 이메일로 보내 주세요. 문의 시 앱 이름, 기기 모델, OS 버전, 문제가 발생한 화면을 함께 적어 주시면 확인에 도움이 됩니다.</p>
+    <a class="contact-email" href="mailto:helpyjs@gmail.com">helpyjs@gmail.com</a>
+  </section>
+
+  <section class="section" aria-labelledby="apps-title">
+    <h2 id="apps-title">Supported Apps</h2>
+    <ul class="app-list">
+      <li>
+        <strong>환생 우주선 방치하기</strong>
+        <span>Reborn Starship Idle</span>
+      </li>
+      <li>
+        <strong>Idle Hero Reborn</strong>
+        <span>Auto-battle idle RPG</span>
+      </li>
+      <li>
+        <strong>Rebirth Forge Idle</strong>
+        <span>Idle forging and rebirth progression</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="policy-title">
+    <h2 id="policy-title">Privacy and Data Requests</h2>
+    <p>개인정보처리방침, 계정 삭제, 데이터 삭제 요청 안내는 공식 안내 페이지에서 확인할 수 있습니다. 이메일로도 관련 요청을 접수할 수 있습니다.</p>
+    <div class="link-row">
+      <a class="link-button" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">공식 안내 페이지</a>
+      <a class="link-button" href="mailto:helpyjs@gmail.com?subject=YJS%20Games%20Data%20Request">데이터 요청 이메일</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="review-title">
+    <h2 id="review-title">App Store Connect URLs</h2>
+    <p>Support URL: <strong>https://yjsgames.github.io/support/</strong></p>
+    <p>Marketing URL: <strong>https://yjsgames.github.io/</strong></p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2026 YJS Games. All rights reserved.
+</footer>
+</body>
+</html>

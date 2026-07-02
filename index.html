@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YJS Games</title>
-<meta name="description" content="YJS Games — Idle Hero Reborn, Rebirth Forge Idle 게임을 만듭니다. Google Play / App Store에서 만나보세요.">
+<meta name="description" content="YJS Games — Idle Hero Reborn, Rebirth Forge Idle 게임과 공식 지원 정보를 제공합니다. Google Play / App Store에서 만나보세요.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{height:100%}
@@ -107,6 +107,52 @@ body{
 .store-btn svg{flex-shrink:0}
 
 /* --- notion link --- */
+.support-summary{
+  width:100%;
+  max-width:820px;
+  margin:0 auto 24px;
+  padding:0 20px;
+}
+.support-panel{
+  border:1px solid #23262f;
+  background:#15161d;
+  padding:24px;
+  text-align:center;
+}
+.support-panel h2{
+  font-size:18px;
+  color:#f0f1f5;
+  margin-bottom:8px;
+}
+.support-panel p{
+  color:#8a90a4;
+  font-size:13.5px;
+  margin-bottom:16px;
+}
+.support-links{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.support-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:10px 16px;
+  border-radius:8px;
+  color:#c8ccd8;
+  background:#1c1e28;
+  border:1px solid #2c3040;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+}
+.support-link:hover{
+  background:#222635;
+  color:#f0f1f5;
+}
 .notion-bar{
   text-align:center;padding:0 20px 20px;
 }
@@ -134,6 +180,9 @@ footer{
   .card-icon img{width:84px;height:84px}
   .card-body h2{font-size:18px}
   .store-btn{padding:10px 14px;font-size:12.5px}
+  .support-panel{padding:20px 16px}
+  .support-links{flex-direction:column}
+  .support-link{width:100%}
 }
 </style>
 </head>
@@ -200,6 +249,19 @@ footer{
     </div>
   </article>
 
+</section>
+
+<!-- Direct support information for app store review and users -->
+<section class="support-summary" aria-labelledby="support-title">
+  <div class="support-panel">
+    <h2 id="support-title">Support</h2>
+    <p>게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.</p>
+    <div class="support-links">
+      <a class="support-link" href="support/">지원 페이지</a>
+      <a class="support-link" href="mailto:helpyjs@gmail.com">helpyjs@gmail.com</a>
+      <a class="support-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">개인정보 · 계정삭제</a>
+    </div>
+  </div>
 </section>
 
 <!-- Notion official page link -->
