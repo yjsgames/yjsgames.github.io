@@ -14,11 +14,40 @@ body{
   min-height:100%;display:flex;flex-direction:column;
   line-height:1.6;
   background:#0e0f14;
+  overflow-x:hidden;
+}
+.language-switch{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:10;
+  display:flex;
+  gap:4px;
+  padding:4px;
+  border:1px solid #23262f;
+  border-radius:999px;
+  background:rgba(21,22,29,.92);
+  backdrop-filter:blur(10px);
+}
+.language-switch button{
+  min-width:58px;
+  min-height:30px;
+  padding:6px 10px;
+  border:0;
+  border-radius:999px;
+  color:#8a90a4;
+  background:transparent;
+  font:700 12px/1 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  cursor:pointer;
+}
+.language-switch button[aria-pressed="true"]{
+  color:#f0f1f5;
+  background:#253660;
 }
 
 /* --- header --- */
 .site-header{
-  text-align:center;padding:52px 20px 12px;
+  text-align:center;padding:64px 20px 12px;
 }
 .site-header h1{
   font-size:28px;font-weight:800;letter-spacing:-.3px;color:#f0f1f5;
@@ -128,6 +157,7 @@ body{
   color:#8a90a4;
   font-size:13.5px;
   margin-bottom:16px;
+  overflow-wrap:break-word;
 }
 .support-links{
   display:flex;
@@ -173,7 +203,9 @@ footer{
 
 /* responsive */
 @media(max-width:480px){
-  .site-header{padding-top:36px}
+  .language-switch{top:10px;right:8px}
+  .language-switch button{min-width:42px;font-size:11px;padding:6px 8px}
+  .site-header{padding-top:58px}
   .site-header h1{font-size:24px}
   .games{padding:24px 16px 36px;gap:20px}
   .card{max-width:100%}
@@ -187,11 +219,15 @@ footer{
 </style>
 </head>
 <body>
+<div class="language-switch" aria-label="Language">
+  <button type="button" data-lang-option="ko" aria-label="한국어">한글</button>
+  <button type="button" data-lang-option="en" aria-label="English">EN</button>
+</div>
 
 <!-- Header -->
 <header class="site-header">
   <h1>YJS Games</h1>
-  <p class="tagline">Mobile Idle Games Studio</p>
+  <p class="tagline" data-i18n="tagline">Mobile Idle Games Studio</p>
 </header>
 
 <!-- Developer store links -->
@@ -212,7 +248,7 @@ footer{
     </div>
     <div class="card-body">
       <h2>Idle Hero Reborn</h2>
-      <p class="desc">Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.</p>
+      <p class="desc" data-i18n="idleHeroDesc">Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.</p>
       <div class="store-btns">
         <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener">
           <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
@@ -235,7 +271,7 @@ footer{
     </div>
     <div class="card-body">
       <h2>Rebirth Forge Idle</h2>
-      <p class="desc">Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.</p>
+      <p class="desc" data-i18n="rebirthForgeDesc">Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.</p>
       <div class="store-btns">
         <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" target="_blank" rel="noopener">
           <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
@@ -254,12 +290,12 @@ footer{
 <!-- Direct support information for app store review and users -->
 <section class="support-summary" aria-labelledby="support-title">
   <div class="support-panel">
-    <h2 id="support-title">Support</h2>
-    <p>게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.</p>
+    <h2 id="support-title" data-i18n="supportHeading">Support</h2>
+    <p data-i18n="supportIntro">게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.</p>
     <div class="support-links">
-      <a class="support-link" href="support/">지원 페이지</a>
+      <a class="support-link" href="support/" data-i18n="supportPage">지원 페이지</a>
       <a class="support-link" href="mailto:helpyjs@gmail.com">helpyjs@gmail.com</a>
-      <a class="support-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">개인정보 · 계정삭제</a>
+      <a class="support-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener" data-i18n="privacyDelete">개인정보 · 계정삭제</a>
     </div>
   </div>
 </section>
@@ -267,7 +303,7 @@ footer{
 <!-- Notion official page link -->
 <div class="notion-bar">
   <a class="notion-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">
-    공식 안내 · 개인정보 · 계정삭제 · 문의 →
+    <span data-i18n="officialGuide">공식 안내 · 개인정보 · 계정삭제 · 문의 →</span>
   </a>
 </div>
 
@@ -277,6 +313,53 @@ footer{
 </footer>
 
 <script>
+const i18n={
+  ko:{
+    title:"YJS Games",
+    description:"YJS Games — Idle Hero Reborn, Rebirth Forge Idle 게임과 공식 지원 정보를 제공합니다. Google Play / App Store에서 만나보세요.",
+    tagline:"Mobile Idle Games Studio",
+    idleHeroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
+    rebirthForgeDesc:"운 기반 방치형 제작 — 검을 재련하고 영구 환생 성장을 해금하세요.",
+    supportHeading:"지원",
+    supportIntro:"게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.",
+    supportPage:"지원 페이지",
+    privacyDelete:"개인정보 · 계정삭제",
+    officialGuide:"공식 안내 · 개인정보 · 계정삭제 · 문의 →"
+  },
+  en:{
+    title:"YJS Games",
+    description:"YJS Games provides mobile idle games and official support information for Google Play and the App Store.",
+    tagline:"Mobile Idle Games Studio",
+    idleHeroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
+    rebirthForgeDesc:"Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.",
+    supportHeading:"Support",
+    supportIntro:"For gameplay issues, bug reports, or feedback, contact us by email. Use the support page below for App Store support.",
+    supportPage:"Support page",
+    privacyDelete:"Privacy · Account deletion",
+    officialGuide:"Official guide · Privacy · Account deletion · Contact →"
+  }
+};
+function applyLanguage(lang){
+  const selected=i18n[lang]?lang:"en";
+  document.documentElement.lang=selected;
+  document.title=i18n[selected].title;
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta) meta.content=i18n[selected].description;
+  document.querySelectorAll("[data-i18n]").forEach((el)=>{
+    const key=el.dataset.i18n;
+    if(i18n[selected][key]) el.textContent=i18n[selected][key];
+  });
+  document.querySelectorAll("[data-lang-option]").forEach((button)=>{
+    button.setAttribute("aria-pressed", String(button.dataset.langOption===selected));
+  });
+  localStorage.setItem("yjsgames-lang", selected);
+}
+document.querySelectorAll("[data-lang-option]").forEach((button)=>{
+  button.addEventListener("click",()=>applyLanguage(button.dataset.langOption));
+});
+const savedLang=localStorage.getItem("yjsgames-lang");
+applyLanguage(savedLang||((navigator.language||"").toLowerCase().startsWith("ko")?"ko":"en"));
+
 const isAppleStoreDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1;
 if(isAppleStoreDevice){
   document.querySelectorAll(".platform-link[data-ios-href]").forEach((link)=>{

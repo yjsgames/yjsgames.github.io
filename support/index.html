@@ -15,9 +15,39 @@ body{
   background:#0e0f14;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 a{color:inherit}
+.language-switch{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:10;
+  display:flex;
+  gap:4px;
+  padding:4px;
+  border:1px solid #23262f;
+  border-radius:999px;
+  background:rgba(21,22,29,.92);
+  backdrop-filter:blur(10px);
+}
+.language-switch button{
+  min-width:58px;
+  min-height:30px;
+  padding:6px 10px;
+  border:0;
+  border-radius:999px;
+  color:#8a90a4;
+  background:transparent;
+  font:700 12px/1 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  cursor:pointer;
+}
+.language-switch button[aria-pressed="true"]{
+  color:#f0f1f5;
+  background:#253660;
+}
 .page{
+  width:100%;
   max-width:900px;
   margin:0 auto;
   padding:48px 20px 40px;
@@ -62,6 +92,7 @@ h1{
 .section li{
   color:#9aa3b5;
   font-size:14px;
+  overflow-wrap:break-word;
 }
 .contact-email{
   display:inline-flex;
@@ -125,7 +156,9 @@ footer{
   padding-top:14px;
 }
 @media(max-width:720px){
-  .page{padding-top:34px}
+  .language-switch{top:10px;right:8px}
+  .language-switch button{min-width:42px;font-size:11px;padding:6px 8px}
+  .page{padding-top:58px}
   h1{font-size:25px}
   .section{padding:20px 16px}
   .app-list{grid-template-columns:1fr}
@@ -135,49 +168,53 @@ footer{
 </style>
 </head>
 <body>
+<div class="language-switch" aria-label="Language">
+  <button type="button" data-lang-option="ko" aria-label="한국어">한글</button>
+  <button type="button" data-lang-option="en" aria-label="English">EN</button>
+</div>
 <main class="page">
-  <a class="top-link" href="../">← YJS Games home</a>
+  <a class="top-link" href="../" data-i18n="homeLink">← YJS Games home</a>
 
   <header>
     <h1>YJS Games Support</h1>
-    <p class="lead">YJS Games 모바일 게임 이용 중 발생한 문제, 결제/광고/저장 관련 문의, 일반 피드백을 접수하는 공식 지원 페이지입니다.</p>
+    <p class="lead" data-i18n="lead">YJS Games 모바일 게임 이용 중 발생한 문제, 결제/광고/저장 관련 문의, 일반 피드백을 접수하는 공식 지원 페이지입니다.</p>
   </header>
 
   <section class="section" aria-labelledby="contact-title">
-    <h2 id="contact-title">Contact</h2>
-    <p>앱 문제, 기능 제안, 일반 피드백은 아래 이메일로 보내 주세요. 문의 시 앱 이름, 기기 모델, OS 버전, 문제가 발생한 화면을 함께 적어 주시면 확인에 도움이 됩니다.</p>
+    <h2 id="contact-title" data-i18n="contactHeading">Contact</h2>
+    <p data-i18n="contactText">앱 문제, 기능 제안, 일반 피드백은 아래 이메일로 보내 주세요. 문의 시 앱 이름, 기기 모델, OS 버전, 문제가 발생한 화면을 함께 적어 주시면 확인에 도움이 됩니다.</p>
     <a class="contact-email" href="mailto:helpyjs@gmail.com">helpyjs@gmail.com</a>
   </section>
 
   <section class="section" aria-labelledby="apps-title">
-    <h2 id="apps-title">Supported Apps</h2>
+    <h2 id="apps-title" data-i18n="appsHeading">Supported Apps</h2>
     <ul class="app-list">
       <li>
-        <strong>환생 우주선 방치하기</strong>
-        <span>Reborn Starship Idle</span>
+        <strong data-i18n="starshipTitle">환생 우주선 방치하기</strong>
+        <span data-i18n="starshipDesc">Reborn Starship Idle</span>
       </li>
       <li>
         <strong>Idle Hero Reborn</strong>
-        <span>Auto-battle idle RPG</span>
+        <span data-i18n="idleHeroDesc">Auto-battle idle RPG</span>
       </li>
       <li>
         <strong>Rebirth Forge Idle</strong>
-        <span>Idle forging and rebirth progression</span>
+        <span data-i18n="rebirthForgeDesc">Idle forging and rebirth progression</span>
       </li>
     </ul>
   </section>
 
   <section class="section" aria-labelledby="policy-title">
-    <h2 id="policy-title">Privacy and Data Requests</h2>
-    <p>개인정보처리방침, 계정 삭제, 데이터 삭제 요청 안내는 공식 안내 페이지에서 확인할 수 있습니다. 이메일로도 관련 요청을 접수할 수 있습니다.</p>
+    <h2 id="policy-title" data-i18n="policyHeading">Privacy and Data Requests</h2>
+    <p data-i18n="policyText">개인정보처리방침, 계정 삭제, 데이터 삭제 요청 안내는 공식 안내 페이지에서 확인할 수 있습니다. 이메일로도 관련 요청을 접수할 수 있습니다.</p>
     <div class="link-row">
-      <a class="link-button" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">공식 안내 페이지</a>
-      <a class="link-button" href="mailto:helpyjs@gmail.com?subject=YJS%20Games%20Data%20Request">데이터 요청 이메일</a>
+      <a class="link-button" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener" data-i18n="officialGuide">공식 안내 페이지</a>
+      <a class="link-button" href="mailto:helpyjs@gmail.com?subject=YJS%20Games%20Data%20Request" data-i18n="dataEmail">데이터 요청 이메일</a>
     </div>
   </section>
 
   <section class="section" aria-labelledby="review-title">
-    <h2 id="review-title">App Store Connect URLs</h2>
+    <h2 id="review-title" data-i18n="urlsHeading">App Store Connect URLs</h2>
     <p>Support URL: <strong>https://yjsgames.github.io/support/</strong></p>
     <p>Marketing URL: <strong>https://yjsgames.github.io/</strong></p>
   </section>
@@ -186,5 +223,65 @@ footer{
 <footer>
   &copy; 2026 YJS Games. All rights reserved.
 </footer>
+<script>
+const i18n={
+  ko:{
+    title:"YJS Games Support",
+    description:"YJS Games 공식 지원 페이지. 앱 이용 문의, 오류 제보, 개인정보처리방침, 계정 및 데이터 삭제 안내를 제공합니다.",
+    homeLink:"← YJS Games 홈",
+    lead:"YJS Games 모바일 게임 이용 중 발생한 문제, 결제/광고/저장 관련 문의, 일반 피드백을 접수하는 공식 지원 페이지입니다.",
+    contactHeading:"문의",
+    contactText:"앱 문제, 기능 제안, 일반 피드백은 아래 이메일로 보내 주세요. 문의 시 앱 이름, 기기 모델, OS 버전, 문제가 발생한 화면을 함께 적어 주시면 확인에 도움이 됩니다.",
+    appsHeading:"지원 앱",
+    starshipTitle:"환생 우주선 방치하기",
+    starshipDesc:"Reborn Starship Idle",
+    idleHeroDesc:"자동 전투 방치형 RPG",
+    rebirthForgeDesc:"방치형 제작과 환생 성장",
+    policyHeading:"개인정보 및 데이터 요청",
+    policyText:"개인정보처리방침, 계정 삭제, 데이터 삭제 요청 안내는 공식 안내 페이지에서 확인할 수 있습니다. 이메일로도 관련 요청을 접수할 수 있습니다.",
+    officialGuide:"공식 안내 페이지",
+    dataEmail:"데이터 요청 이메일",
+    urlsHeading:"App Store Connect URL"
+  },
+  en:{
+    title:"YJS Games Support",
+    description:"Official YJS Games support page for app issues, bug reports, privacy policy, account deletion, and data deletion requests.",
+    homeLink:"← YJS Games home",
+    lead:"Official support page for YJS Games mobile app issues, purchase, ads, save data questions, and general feedback.",
+    contactHeading:"Contact",
+    contactText:"For app issues, feature suggestions, or general feedback, email us below. Please include the app name, device model, OS version, and the screen where the issue occurred.",
+    appsHeading:"Supported Apps",
+    starshipTitle:"Reborn Starship Idle",
+    starshipDesc:"Korean title: 환생 우주선 방치하기",
+    idleHeroDesc:"Auto-battle idle RPG",
+    rebirthForgeDesc:"Idle forging and rebirth progression",
+    policyHeading:"Privacy and Data Requests",
+    policyText:"Privacy policy, account deletion, and data deletion request information is available on the official guide page. You can also send related requests by email.",
+    officialGuide:"Official guide page",
+    dataEmail:"Data request email",
+    urlsHeading:"App Store Connect URLs"
+  }
+};
+function applyLanguage(lang){
+  const selected=i18n[lang]?lang:"en";
+  document.documentElement.lang=selected;
+  document.title=i18n[selected].title;
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta) meta.content=i18n[selected].description;
+  document.querySelectorAll("[data-i18n]").forEach((el)=>{
+    const key=el.dataset.i18n;
+    if(i18n[selected][key]) el.textContent=i18n[selected][key];
+  });
+  document.querySelectorAll("[data-lang-option]").forEach((button)=>{
+    button.setAttribute("aria-pressed", String(button.dataset.langOption===selected));
+  });
+  localStorage.setItem("yjsgames-lang", selected);
+}
+document.querySelectorAll("[data-lang-option]").forEach((button)=>{
+  button.addEventListener("click",()=>applyLanguage(button.dataset.langOption));
+});
+const savedLang=localStorage.getItem("yjsgames-lang");
+applyLanguage(savedLang||((navigator.language||"").toLowerCase().startsWith("ko")?"ko":"en"));
+</script>
 </body>
 </html>
