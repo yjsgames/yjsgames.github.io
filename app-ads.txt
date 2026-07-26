@@ -1,2 +1,2 @@
 OWNERDOMAIN=yjsgames.github.io
-google.com, pub-7241488485455806, DIRECT, f08c47fec0942fa0
+google.com, pub-1684573963866337, DIRECT, f08c47fec0942fa0
