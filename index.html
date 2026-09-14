@@ -195,8 +195,13 @@ body{
 }
 .btn-itch:hover{background:#4a2930}
 
+.btn-toss{
+  background:#0f2244;color:#4c9aff;border:1px solid #1c3a66;
+}
+.btn-toss:hover{background:#152c52}
+
 /* store icon svg inline */
-.store-btn svg{flex-shrink:0}
+.store-btn svg,.store-btn img{flex-shrink:0}
 
 /* --- notion link --- */
 .support-summary{
@@ -315,7 +320,7 @@ footer{
   <!-- Card 1: Reborn Starship Idle -->
   <article class="card">
     <div class="card-icon">
-      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" target="_blank" rel="noopener" aria-label="Reborn Starship Idle Google Play page">
+      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" data-ios-href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener" aria-label="Reborn Starship Idle store page">
         <img src="assets/icon-reborn-starship-idle.png" alt="Reborn Starship Idle icon" width="100" height="100">
       </a>
     </div>
@@ -327,7 +332,14 @@ footer{
           <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
           Google Play
         </a>
-        <span class="store-btn disabled" data-i18n="appStoreSoon">App Store 준비 중</span>
+        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener">
+          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
+          App Store
+        </a>
+        <a class="store-btn btn-toss" href="intoss://reborn-starship-idle" data-i18n-title="tossTitle" target="_blank" rel="noopener">
+          <img src="assets/icon-apps-in-toss.png" alt="" width="18" height="18">
+          <span data-i18n="tossLabel">앱인토스</span>
+        </a>
         <a class="store-btn btn-itch" href="https://yjsgames.itch.io/reborn-starship-idle" target="_blank" rel="noopener">
           itch.io <span class="btn-badge">DEMO</span>
         </a>
@@ -423,8 +435,8 @@ const i18n={
     idleHeroTitle:"환생용사 방치하기",
     idleHeroYear:"2025",
     idleHeroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
-    googlePlaySoon:"Google Play 준비 중",
-    appStoreSoon:"App Store 준비 중",
+    tossLabel:"앱인토스",
+    tossTitle:"토스 앱에서 플레이할 수 있어요",
     supportHeading:"지원",
     supportIntro:"게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.",
     supportPage:"지원 페이지",
@@ -444,8 +456,8 @@ const i18n={
     idleHeroTitle:"Idle Hero Reborn",
     idleHeroYear:"2025",
     idleHeroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
-    googlePlaySoon:"Google Play soon",
-    appStoreSoon:"App Store soon",
+    tossLabel:"Apps in Toss",
+    tossTitle:"Play inside the Toss app",
     supportHeading:"Support",
     supportIntro:"For gameplay issues, bug reports, or feedback, contact us by email. Use the support page below for App Store support.",
     supportPage:"Support page",
@@ -462,6 +474,10 @@ function applyLanguage(lang){
   document.querySelectorAll("[data-i18n]").forEach((el)=>{
     const key=el.dataset.i18n;
     if(i18n[selected][key]) el.textContent=i18n[selected][key];
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach((el)=>{
+    const key=el.dataset.i18nTitle;
+    if(i18n[selected][key]) el.title=i18n[selected][key];
   });
   document.querySelectorAll("[data-lang-option]").forEach((button)=>{
     button.setAttribute("aria-pressed", String(button.dataset.langOption===selected));
