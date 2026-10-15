@@ -4,525 +4,732 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>YJS Games</title>
-<meta name="description" content="YJS Games — Idle Hero Reborn, Rebirth Forge Idle 게임과 공식 지원 정보를 제공합니다. Google Play / App Store에서 만나보세요.">
+<meta name="description" content="YJS Games — 길건너 용사들, 뽑아모아: 인형뽑기, 환생 우주선 방치하기, 환생대장간 방치하기, 환생용사 방치하기 게임과 공식 지원 정보를 제공합니다.">
 <style>
+:root{
+  --bg:#0b0c12;
+  --bg-2:#11131c;
+  --card:#151824;
+  --card-2:#1b1f2e;
+  --line:#262b3d;
+  --line-2:#343a52;
+  --text:#eef0f6;
+  --muted:#8d93a8;
+  --dim:#5c6278;
+  --accent:#ffd166;
+  --violet:#8b6cff;
+  --teal:#3fd6c2;
+  --gp:#5ae07a;
+  --as:#5a9ff0;
+  --itch:#ff7a85;
+  --crazy:#a98bff;
+  --toss:#4c9aff;
+  color-scheme:dark;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-html{height:100%}
+html{scroll-behavior:smooth}
 body{
   font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
-  color:#e0e2ea;-webkit-font-smoothing:antialiased;
-  min-height:100%;display:flex;flex-direction:column;
-  line-height:1.6;
-  background:#0e0f14;
-  overflow-x:hidden;
+  color:var(--text);background:var(--bg);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
+a{color:inherit}
+button{font-family:inherit}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* ---------- 상단 내비 ---------- */
+.nav{
+  position:sticky;top:0;z-index:20;
+  background:rgba(11,12,18,.72);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;text-decoration:none;letter-spacing:-.2px;white-space:nowrap}
+.logo-mark{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--violet),var(--teal));
+  font-size:12px;font-weight:900;color:#0b0c12;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex;gap:2px}
+.nav-links a{
+  padding:7px 11px;border-radius:8px;color:var(--muted);font-size:13.5px;font-weight:700;text-decoration:none;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .language-switch{
-  position:fixed;
-  top:18px;
-  right:18px;
-  z-index:10;
-  display:flex;
-  gap:4px;
-  padding:4px;
-  border:1px solid #23262f;
-  border-radius:999px;
-  background:rgba(21,22,29,.92);
-  backdrop-filter:blur(10px);
+  display:flex;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:rgba(21,24,36,.9);
 }
 .language-switch button{
-  min-width:58px;
-  min-height:30px;
-  padding:6px 10px;
-  border:0;
-  border-radius:999px;
-  color:#8a90a4;
-  background:transparent;
-  font:700 12px/1 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,sans-serif;
-  cursor:pointer;
+  min-width:46px;min-height:28px;padding:5px 9px;border:0;border-radius:999px;
+  color:var(--muted);background:transparent;font-size:12px;font-weight:800;cursor:pointer;
 }
-.language-switch button[aria-pressed="true"]{
-  color:#f0f1f5;
-  background:#253660;
-}
+.language-switch button[aria-pressed="true"]{color:var(--text);background:#2a3150}
 
-/* --- header --- */
-.site-header{
-  text-align:center;padding:64px 20px 12px;
+/* ---------- 히어로 ---------- */
+.hero{position:relative;padding:84px 0 56px;text-align:center;overflow:hidden}
+.hero::before,.hero::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.45;pointer-events:none;
 }
-.site-header h1{
-  font-size:28px;font-weight:800;letter-spacing:-.3px;color:#f0f1f5;
+.hero::before{width:520px;height:520px;left:-140px;top:-180px;background:#4b35b8}
+.hero::after{width:460px;height:460px;right:-120px;top:-120px;background:#0f6f68}
+.hero > *{position:relative}
+.hero::before,.hero::after{z-index:0}
+.hero > .wrap{z-index:1}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line-2);background:rgba(21,24,36,.7);
+  font-size:12.5px;font-weight:700;color:var(--muted);text-decoration:none;
 }
-.site-header .tagline{
-  margin-top:6px;color:#8a90a4;font-size:14px;
+.eyebrow:hover{color:var(--text)}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
+.hero h1{
+  margin-top:18px;font-size:clamp(40px,7vw,68px);font-weight:900;letter-spacing:-1.5px;line-height:1.05;
+  background:linear-gradient(180deg,#fff 30%,#a9b0c8);-webkit-background-clip:text;background-clip:text;color:transparent;
 }
-
-/* --- dev links bar --- */
-.dev-links{
-  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-  padding:12px 20px 8px;
+.hero p.lead{margin:14px auto 0;max-width:520px;color:#a6adc2;font-size:16px}
+/* 히어로 배경: 게임 스크린샷을 기울여 흐리게 깐 띠 (장식) */
+.hero .hero-art{
+  position:absolute;left:50%;top:-30px;display:flex;gap:18px;
+  transform:translateX(-50%) rotate(-6deg);opacity:.17;filter:saturate(1.25);pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 35%,transparent 95%);mask-image:linear-gradient(180deg,#000 35%,transparent 95%);
 }
+/* 상세 창 스크린샷(assets/screens/)은 쓰지 않는다 — 상세를 열기 전에는 내려받지 않도록 별도 합성 이미지 사용 */
+.hero .hero-art img{display:block;width:1158px;max-width:none;height:auto}
+.hero h1,.hero p.lead{filter:drop-shadow(0 2px 14px rgba(5,6,10,.85))}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.stat{
+  min-width:120px;padding:12px 18px;border-radius:14px;
+  background:rgba(21,24,36,.75);border:1px solid var(--line);
+}
+.stat b{display:block;font-size:22px;font-weight:900}
+.stat span{font-size:12px;color:var(--muted);font-weight:700}
+.dev-links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px}
 .dev-links a{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  min-height:40px;
-  padding:10px 15px;
-  border-radius:10px;
-  color:#c8ccd8;
-  background:#15161d;
-  border:1px solid #2c3040;
-  font-size:13px;
-  font-weight:700;
-  text-decoration:none;
-  transition:background .15s,color .15s,border-color .15s,transform .12s;
+  display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);font-size:12.5px;font-weight:700;text-decoration:none;
 }
-.dev-links a:hover{
-  color:#f0f1f5;
-  background:#1c1e28;
-  border-color:#555a6a;
-  transform:translateY(-1px);
-}
+.dev-links a:hover{color:var(--text);border-color:var(--line-2)}
 .dev-links svg{flex-shrink:0}
+.pf-ico{width:15px;height:15px;flex-shrink:0}
 
-/* --- game cards grid --- */
-.games{
-  flex:1;
-  display:flex;justify-content:center;align-items:flex-start;
-  gap:28px;flex-wrap:wrap;
-  padding:36px 20px 48px;
-  max-width:1180px;margin:0 auto;width:100%;
+/* ---------- 섹션 헤더 ---------- */
+.section{padding:28px 0 56px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.section-head h2{font-size:26px;font-weight:900;letter-spacing:-.5px}
+.section-head p{color:var(--muted);font-size:14px}
+
+/* ---------- 피처드 배너 ---------- */
+.featured{
+  position:relative;display:grid;grid-template-columns:1.1fr 1fr;min-height:360px;
+  border-radius:24px;overflow:hidden;border:1px solid var(--line-2);
+  background:#0d1a17;box-shadow:0 30px 80px rgba(0,0,0,.45);
 }
+.featured-art{position:relative;min-height:240px}
+.featured-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.featured-art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,#0d1a17 100%)}
+.featured-body{padding:40px 40px 36px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{
+  display:inline-flex;align-items:center;padding:4px 9px;border-radius:999px;
+  font-size:11px;font-weight:800;letter-spacing:.2px;line-height:1.2;white-space:nowrap;
+  color:var(--accent);background:#3a2d16;border:1px solid #6d5222;
+}
+.badge.new{color:#0b0c12;background:var(--teal);border-color:var(--teal)}
+.badge.web{color:var(--crazy);background:#241b45;border-color:#433083}
+.badge.rec{color:#2a1a00;background:linear-gradient(135deg,#ffd166,#ffae2b);border-color:#ffb84a}
+.featured h3{font-size:34px;font-weight:900;letter-spacing:-.8px;line-height:1.15}
+.featured h3 small{display:block;margin-top:4px;font-size:15px;font-weight:700;color:var(--muted);letter-spacing:0}
+.featured p{color:#b9c1d4;font-size:15px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.cta{
+  display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:12px;border:1px solid transparent;
+  font-size:15px;font-weight:800;text-decoration:none;cursor:pointer;transition:transform .12s,box-shadow .2s,background .15s;
+}
+.cta-primary{color:#fff;background:linear-gradient(135deg,#7b5cff,#5b3fe0);box-shadow:0 10px 30px rgba(123,92,255,.45)}
+.cta-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(123,92,255,.6)}
+.cta-ghost{color:var(--text);background:rgba(255,255,255,.06);border-color:var(--line-2)}
+.cta-ghost:hover{background:rgba(255,255,255,.1)}
+.play-ico{width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.play-ico::before{content:"";margin-left:2px;border-left:8px solid #5b3fe0;border-top:5px solid transparent;border-bottom:5px solid transparent}
+
+/* ---------- 필터 ---------- */
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.filters button{
+  padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;
+  color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;
+}
+.filters button[aria-pressed="true"]{color:#0b0c12;background:var(--text);border-color:var(--text)}
+
+/* ---------- 게임 카드 ---------- */
+/* 300px 최소폭: 데스크톱 3열(5개 = 3+2), 태블릿 2열, 모바일 1열 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
 .card{
-  background:#181a22;
-  border:1px solid #23262f;
-  border-radius:18px;
-  width:100%;max-width:360px;
-  overflow:hidden;
-  transition:transform .18s,box-shadow .18s;
+  position:relative;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;
+  background:var(--card);border:1px solid var(--line);
+  transition:transform .2s,border-color .2s,box-shadow .2s;
 }
-.card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 16px 48px rgba(0,0,0,.45);
+.card:hover{transform:translateY(-4px);border-color:var(--line-2);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.card[hidden]{display:none}
+.card-top{position:relative;height:150px;overflow:hidden;display:grid;place-items:center}
+.card-top .blur{
+  position:absolute;inset:-30px;background-size:cover;background-position:center;
+  filter:blur(28px) saturate(1.4);opacity:.55;transform:scale(1.1);
+}
+.card-top::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,var(--card));pointer-events:none}
+.card-top a{position:relative;z-index:1;display:block;line-height:0;border-radius:22px}
+.card-top img{
+  width:92px;height:92px;border-radius:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);
+}
+.card-body{flex:1;display:flex;flex-direction:column;padding:4px 20px 20px;gap:8px}
+.card-title{font-size:17px;font-weight:800;line-height:1.3}
+.meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.tag{font-size:11.5px;font-weight:700;color:var(--muted);padding:3px 8px;border-radius:6px;background:var(--card-2)}
+.card-desc{color:var(--muted);font-size:13.5px;flex:1}
+.platforms{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.pf{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 11px;border-radius:9px;
+  font-size:12.5px;font-weight:800;text-decoration:none;border:1px solid;white-space:nowrap;transition:transform .12s,filter .15s;
+}
+.pf:hover{transform:translateY(-1px);filter:brightness(1.15)}
+.pf svg,.pf img{flex-shrink:0}
+.pf.gp{color:var(--gp);background:#13291f;border-color:#24503a}
+.pf.as{color:var(--as);background:#131d33;border-color:#253660}
+.pf.itch{color:var(--itch);background:#2e181c;border-color:#6a3038}
+.pf.crazy{color:var(--crazy);background:#1e1838;border-color:#433083}
+.pf.toss{color:var(--toss);background:#0f1f3d;border-color:#1c3a66}
+.pf .mini{font-size:9.5px;padding:2px 5px;border-radius:999px;background:#3a2d16;color:var(--accent);border:1px solid #6d5222}
+.more{
+  margin-top:6px;padding:11px;border-radius:10px;border:1px solid var(--line-2);background:var(--card-2);
+  color:var(--text);font-size:13px;font-weight:800;cursor:pointer;transition:background .15s,border-color .15s;
+}
+.more::after{content:" →";color:var(--teal)}
+.more:hover{background:#242a3e;border-color:#4a5274}
+
+/* ---------- 스토어형 상세 창 ---------- */
+dialog{
+  width:min(860px,calc(100% - 24px));max-height:calc(100% - 40px);margin:auto;
+  border:1px solid var(--line-2);border-radius:22px;padding:0;
+  background:var(--bg-2);color:var(--text);box-shadow:0 40px 120px rgba(0,0,0,.6);
+}
+dialog::backdrop{background:rgba(5,6,10,.72);backdrop-filter:blur(4px)}
+.d-head{display:flex;gap:18px;align-items:center;padding:26px 60px 18px 26px}
+.d-head img{width:84px;height:84px;border-radius:20px;flex-shrink:0}
+.d-head h3{font-size:22px;font-weight:900;line-height:1.25}
+.d-lang{display:inline-flex;margin-top:10px}
+.d-head .dev{color:var(--teal);font-size:13px;font-weight:800;margin-top:2px}
+.d-close{
+  position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;
+  border:1px solid var(--line-2);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;
+}
+.d-body{padding:0 26px 26px}
+.shots{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+.shots img{
+  height:340px;width:auto;border-radius:14px;scroll-snap-align:start;flex-shrink:0;
+  border:1px solid var(--line);background:var(--card);
+}
+.d-section{margin-top:22px}
+.d-section h4{font-size:15px;font-weight:900;margin-bottom:8px}
+.d-section p{color:#b9c1d4;font-size:14.5px}
+.features{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.features li{padding:12px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:13.5px;color:#c7cee0}
+.features li b{display:block;color:var(--text);font-size:14px;margin-bottom:2px}
+.d-platforms{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* ---------- 지원 ---------- */
+.support{
+  display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center;
+  padding:30px;border-radius:22px;background:linear-gradient(135deg,#151824,#121522);border:1px solid var(--line);
+}
+.support h2{font-size:22px;font-weight:900}
+.support p{color:var(--muted);font-size:14px;margin-top:6px;overflow-wrap:break-word}
+.support-links{display:flex;flex-direction:column;gap:8px}
+.support-links a{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 16px;border-radius:12px;
+  background:var(--card-2);border:1px solid var(--line);font-size:14px;font-weight:700;text-decoration:none;
+}
+.support-links a:hover{border-color:var(--line-2)}
+.support-links a span:last-child{color:var(--dim)}
+
+footer{padding:28px 0 40px;color:var(--dim);font-size:12.5px;text-align:center}
+
+/* ---------- 등장 애니메이션 (JS가 실행될 때만 숨김) ---------- */
+.js .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
 }
 
-/* icon area */
-.card-icon{
-  display:flex;justify-content:center;padding:32px 0 20px;
-  background:linear-gradient(180deg,#1c1e28 0%,#181a22 100%);
+/* ---------- 반응형 ---------- */
+@media(max-width:820px){
+  .featured{grid-template-columns:1fr}
+  /* 좁은 화면에서는 배너를 잘라내지 않고 원본 비율로 보여 준다 (로고가 이미지에 박혀 있음) */
+  .featured-art{min-height:0;aspect-ratio:1024/500}
+  .featured-art::after{background:linear-gradient(180deg,transparent 55%,#0d1a17 100%)}
+  .featured-body{padding:22px 22px 26px}
+  .featured h3{font-size:28px}
+  .support{grid-template-columns:1fr}
 }
-.card-icon a{display:block;border-radius:22px;overflow:hidden;line-height:0}
-.card-icon img{
-  width:100px;height:100px;border-radius:22px;
-  box-shadow:0 8px 28px rgba(0,0,0,.5);
-}
-
-/* card body */
-.card-body{padding:0 24px 28px;text-align:center}
-.card-body h2{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  flex-wrap:wrap;
-  font-size:20px;font-weight:700;color:#f0f1f5;margin-bottom:8px;
-}
-.release-year{
-  display:inline-flex;
-  align-items:center;
-  min-height:18px;
-  padding:3px 7px;
-  border-radius:999px;
-  color:#ffd166;
-  background:#3a2d16;
-  border:1px solid #6d5222;
-  font-size:10px;
-  font-weight:800;
-  line-height:1;
-  letter-spacing:0;
-  white-space:nowrap;
-}
-.btn-badge{
-  display:inline-flex;
-  align-items:center;
-  min-height:18px;
-  padding:3px 6px;
-  border-radius:999px;
-  color:#ffd166;
-  background:#3a2d16;
-  border:1px solid #6d5222;
-  font-size:10px;
-  font-weight:800;
-  line-height:1;
-  letter-spacing:0;
-}
-.card-body .desc{
-  font-size:13.5px;color:#8a90a4;line-height:1.55;margin-bottom:22px;
-  min-height:42px;
-}
-
-/* store buttons */
-.store-btns{
-  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
-}
-.store-btn{
-  display:inline-flex;align-items:center;gap:7px;
-  padding:11px 18px;border-radius:10px;
-  font-size:13.5px;font-weight:700;text-decoration:none;
-  transition:background .15s,transform .12s;
-  white-space:nowrap;
-}
-.store-btn:hover{transform:translateY(-1px)}
-.store-btn.disabled{
-  color:#6d7286;
-  background:#171922;
-  border:1px solid #2c3040;
-  cursor:default;
-}
-.store-btn.disabled:hover{transform:none}
-
-.btn-gp{
-  background:#1a3a2a;color:#5ae07a;border:1px solid #26503a;
-}
-.btn-gp:hover{background:#1f4530}
-
-.btn-as{
-  background:#1a2440;color:#5a9ff0;border:1px solid #253660;
-}
-.btn-as:hover{background:#1f2d50}
-.btn-itch{
-  background:#3f2227;color:#ff7a85;border:1px solid #6a3038;
-}
-.btn-itch:hover{background:#4a2930}
-
-.btn-toss{
-  background:#0f2244;color:#4c9aff;border:1px solid #1c3a66;
-}
-.btn-toss:hover{background:#152c52}
-
-/* store icon svg inline */
-.store-btn svg,.store-btn img{flex-shrink:0}
-
-/* --- notion link --- */
-.support-summary{
-  width:100%;
-  max-width:820px;
-  margin:0 auto 24px;
-  padding:0 20px;
-}
-.support-panel{
-  border:1px solid #23262f;
-  background:#15161d;
-  padding:24px;
-  text-align:center;
-}
-.support-panel h2{
-  font-size:18px;
-  color:#f0f1f5;
-  margin-bottom:8px;
-}
-.support-panel p{
-  color:#8a90a4;
-  font-size:13.5px;
-  margin-bottom:16px;
-  overflow-wrap:break-word;
-}
-.support-links{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.support-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:42px;
-  padding:10px 16px;
-  border-radius:8px;
-  color:#c8ccd8;
-  background:#1c1e28;
-  border:1px solid #2c3040;
-  font-size:13px;
-  font-weight:700;
-  text-decoration:none;
-}
-.support-link:hover{
-  background:#222635;
-  color:#f0f1f5;
-}
-.notion-bar{
-  text-align:center;padding:0 20px 20px;
-}
-.notion-link{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 24px;border-radius:10px;
-  font-size:13.5px;font-weight:600;text-decoration:none;
-  color:#9aa3b5;background:#15161d;border:1px solid #23262f;
-  transition:background .15s,color .15s;
-}
-.notion-link:hover{background:#1c1e28;color:#c8ccd8}
-
-/* --- footer --- */
-footer{
-  text-align:center;padding:20px 20px 28px;
-  color:#4a5068;font-size:12px;border-top:1px solid #1a1d26;
-}
-
-/* responsive */
-@media(max-width:480px){
-  .language-switch{top:10px;right:8px}
-  .language-switch button{min-width:42px;font-size:11px;padding:6px 8px}
-  .site-header{padding-top:58px}
-  .site-header h1{font-size:24px}
-  .games{padding:24px 16px 36px;gap:20px}
-  .card{max-width:100%}
-  .card-icon img{width:84px;height:84px}
-  .card-body h2{font-size:18px}
-  .store-btn{padding:10px 14px;font-size:12.5px}
-  .support-panel{padding:20px 16px}
-  .support-links{flex-direction:column}
-  .support-link{width:100%}
+@media(max-width:520px){
+  .wrap{padding:0 16px}
+  .logo-text{display:none}
+  .nav-links a{padding:7px 8px;font-size:12.5px}
+  .language-switch button{min-width:38px;padding:5px 7px}
+  .hero{padding:56px 0 40px}
+  .hero .hero-art{opacity:.11}
+  .hero .hero-art img{width:930px}
+  .stat{min-width:0;flex:1 1 30%;padding:10px 8px}
+  .stat b{font-size:19px}
+  .cta{width:100%;justify-content:center}
+  .shots img{height:280px}
+  .d-head{padding:22px 56px 14px 18px}
+  .d-body{padding:0 18px 22px}
+  .support{padding:22px 18px}
 }
 </style>
 </head>
 <body>
-<div class="language-switch" aria-label="Language">
-  <button type="button" data-lang-option="ko" aria-label="한국어">한글</button>
-  <button type="button" data-lang-option="en" aria-label="English">EN</button>
-</div>
+<!-- 스토어 아이콘: 한 번만 정의하고 <use href="#i-…"> 로 재사용 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-gp" viewBox="0 0 16 18"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></symbol>
+  <symbol id="i-as" viewBox="0 0 14 17"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></symbol>
+  <symbol id="i-itch" viewBox="0 0 18 18"><path d="M2.2 3.1h13.6l.8 3.4c.1.9-.5 1.8-1.4 2-.7.1-1.4-.2-1.8-.8-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1.1.9-1.8.8-.9-.2-1.5-1.1-1.4-2l.8-3.4Z" fill="#ff7a85"/><path d="M4 9.6c.5-.1 1-.4 1.4-.8.6.5 1.2.8 2 .8.8 0 1.4-.3 2-.8.6.5 1.2.8 2 .8.7 0 1.4-.3 2-.8.2.3.5.5.8.6v4.8c0 .4-.3.7-.7.7h-9c-.4 0-.7-.3-.7-.7V9.6Z" fill="#ff7a85"/><path d="M7 11.1h4v1.2H7v-1.2Z" fill="#3f2227"/></symbol>
+  <symbol id="i-crazy" viewBox="0 0 20 16"><path d="M5 2h10a5 5 0 0 1 4.8 6.4l-1.3 4.6a2.2 2.2 0 0 1-3.8.8L12.6 11H7.4l-2.1 2.8a2.2 2.2 0 0 1-3.8-.8L.2 8.4A5 5 0 0 1 5 2Z" fill="#a98bff"/><path d="M5 5h1.2v1.4h1.4v1.2H6.2V9H5V7.6H3.6V6.4H5Z" fill="#1e1838"/><circle cx="13.4" cy="6" r="1" fill="#1e1838"/><circle cx="15.3" cy="7.9" r="1" fill="#1e1838"/></symbol>
+</defs></svg>
 
-<!-- Header -->
-<header class="site-header">
-  <h1>YJS Games</h1>
-  <p class="tagline" data-i18n="tagline">Mobile Idle Games Studio</p>
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="YJS Games"><span class="logo-mark">YJS</span><span class="logo-text">YJS Games</span></a>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#games" data-i18n="navGames">게임</a>
+        <a href="#support" data-i18n="navSupport">지원</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language">
+        <button type="button" data-lang-option="ko" aria-label="한국어">한글</button>
+        <button type="button" data-lang-option="en" aria-label="English">EN</button>
+      </div>
+    </div>
+  </div>
 </header>
 
-<!-- Developer store links -->
-<nav class="dev-links">
-  <a href="https://play.google.com/store/apps/dev?id=9126505555578543741" target="_blank" rel="noopener">
-    <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
-    Google Play Developer
-  </a>
-  <a href="https://apps.apple.com/developer/yangjin-lee/id1868279559" target="_blank" rel="noopener">
-    <svg width="14" height="17" viewBox="0 0 14 17" fill="none" aria-hidden="true"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-    App Store Developer
-  </a>
-  <a href="https://yjsgames.itch.io/" target="_blank" rel="noopener">
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M2.2 3.1h13.6l.8 3.4c.1.9-.5 1.8-1.4 2-.7.1-1.4-.2-1.8-.8-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1 .9-1.7.9s-1.3-.3-1.7-.9c-.4.6-1.1.9-1.8.8-.9-.2-1.5-1.1-1.4-2l.8-3.4Z" fill="#ff7a85"/><path d="M4 9.6c.5-.1 1-.4 1.4-.8.6.5 1.2.8 2 .8.8 0 1.4-.3 2-.8.6.5 1.2.8 2 .8.7 0 1.4-.3 2-.8.2.3.5.5.8.6v4.8c0 .4-.3.7-.7.7h-9c-.4 0-.7-.3-.7-.7V9.6Z" fill="#ff7a85"/><path d="M7 11.1h4v1.2H7v-1.2Z" fill="#3f2227"/></svg>
-    itch.io
-  </a>
-</nav>
-
-<!-- Game cards -->
-<section class="games">
-
-  <!-- Card: Claw Gallery -->
-  <article class="card">
-    <div class="card-icon">
-      <a class="platform-link" href="https://yjsgames.itch.io/claw-gallery" data-ios-href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener" aria-label="Claw Gallery store page">
-        <img src="assets/icon-claw-gallery.png" alt="Claw Gallery icon" width="100" height="100">
+<!-- 히어로 -->
+<section class="hero" id="top">
+  <div class="hero-art" aria-hidden="true"><img src="assets/hero-strip.jpg" alt="" width="1158" height="370"></div>
+  <div class="wrap">
+    <!-- data-new-since: 출시일. NEW_DAYS일이 지나면 스크립트가 자동으로 지운다 -->
+    <a class="eyebrow reveal" href="#featured" data-new-since="2026-10-07"><span class="dot"></span><span data-i18n="eyebrow">새 게임 · 길건너 용사들 브라우저 출시</span></a>
+    <h1 class="reveal">YJS Games</h1>
+    <p class="lead reveal" data-i18n="lead">모바일과 웹에서 가볍게 시작해 오래 즐기는 게임을 만듭니다.</p>
+    <div class="stats reveal">
+      <div class="stat"><b>5</b><span data-i18n="statGames">출시 게임</span></div>
+      <div class="stat"><b>5</b><span data-i18n="statPlatforms">플랫폼</span></div>
+      <div class="stat"><b>2025</b><span data-i18n="statSince">첫 출시</span></div>
+    </div>
+    <nav class="dev-links reveal" aria-label="Developer pages">
+      <a href="https://play.google.com/store/apps/dev?id=9126505555578543741" target="_blank" rel="noopener">
+        <svg class="pf-ico" aria-hidden="true"><use href="#i-gp"/></svg>Google Play
       </a>
-    </div>
-    <div class="card-body">
-      <h2><span data-i18n="clawTitle">뽑아모아: 인형뽑기</span><span class="release-year" data-i18n="clawYear">2026</span></h2>
-      <p class="desc" data-i18n="clawDesc">집게로 봉제인형을 뽑아 나만의 전시관을 채우는 인형뽑기 게임.</p>
-      <div class="store-btns">
-        <a class="store-btn btn-as" href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-          App Store
-        </a>
-        <a class="store-btn btn-itch" href="https://yjsgames.itch.io/claw-gallery" target="_blank" rel="noopener">
-          itch.io <span class="btn-badge">DEMO</span>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 1: Reborn Starship Idle -->
-  <article class="card">
-    <div class="card-icon">
-      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" data-ios-href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener" aria-label="Reborn Starship Idle store page">
-        <img src="assets/icon-reborn-starship-idle.png" alt="Reborn Starship Idle icon" width="100" height="100">
+      <a href="https://apps.apple.com/developer/yangjin-lee/id1868279559" target="_blank" rel="noopener">
+        <svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store
       </a>
-    </div>
-    <div class="card-body">
-      <h2><span data-i18n="starshipTitle">환생 우주선 방치하기</span><span class="release-year" data-i18n="starshipYear">2026</span></h2>
-      <p class="desc" data-i18n="starshipDesc">모듈을 연결해 함선을 키우는 방치형 우주 디펜스.</p>
-      <div class="store-btns">
-        <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" target="_blank" rel="noopener">
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
-          Google Play
-        </a>
-        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-          App Store
-        </a>
-        <a class="store-btn btn-toss" href="intoss://reborn-starship-idle" data-i18n-title="tossTitle" target="_blank" rel="noopener">
-          <img src="assets/icon-apps-in-toss.png" alt="" width="18" height="18">
-          <span data-i18n="tossLabel">앱인토스</span>
-        </a>
-        <a class="store-btn btn-itch" href="https://yjsgames.itch.io/reborn-starship-idle" target="_blank" rel="noopener">
-          itch.io <span class="btn-badge">DEMO</span>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 2: Rebirth Forge Idle -->
-  <article class="card">
-    <div class="card-icon">
-      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" data-ios-href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener" aria-label="Rebirth Forge Idle store page">
-        <img src="assets/icon-rebirth-forge-idle.png" alt="Rebirth Forge Idle icon" width="100" height="100">
-      </a>
-    </div>
-    <div class="card-body">
-      <h2><span data-i18n="rebirthForgeTitle">환생대장간 방치하기: 운빨 검 키우기</span><span class="release-year" data-i18n="rebirthForgeYear">2026</span></h2>
-      <p class="desc" data-i18n="rebirthForgeDesc">Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.</p>
-      <div class="store-btns">
-        <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" target="_blank" rel="noopener">
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
-          Google Play
-        </a>
-        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-          App Store
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 3: Idle Hero Reborn -->
-  <article class="card">
-    <div class="card-icon">
-      <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" data-ios-href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener" aria-label="Idle Hero Reborn store page">
-        <img src="assets/icon-idle-hero-reborn.png" alt="Idle Hero Reborn icon" width="100" height="100">
-      </a>
-    </div>
-    <div class="card-body">
-      <h2><span data-i18n="idleHeroTitle">환생용사 방치하기</span><span class="release-year" data-i18n="idleHeroYear">2025</span></h2>
-      <p class="desc" data-i18n="idleHeroDesc">Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.</p>
-      <div class="store-btns">
-        <a class="store-btn btn-gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener">
-          <svg width="16" height="18" viewBox="0 0 16 18" fill="none"><path d="M1.13.52a1.07 1.07 0 0 0-.38.84v15.28c0 .33.14.63.38.84L1.2 17.4 9.1 9 1.2.6 1.13.52Z" fill="#5ae07a"/><path d="M12.04 12.12 9.1 9l2.94-3.12 3.33 1.89c.95.54.95 1.42 0 1.96l-3.33 1.39Z" fill="#ffbd2e"/><path d="M12.04 12.12 9.1 9 1.13 17.48c.31.33.83.37 1.42.04l9.49-5.4Z" fill="#f25c54"/><path d="M12.04 5.88 2.55.48C1.96.1 1.44.15 1.13.48L9.1 9l2.94-3.12Z" fill="#5a9ff0"/></svg>
-          Google Play
-        </a>
-        <a class="store-btn btn-as" href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener">
-          <svg width="14" height="17" viewBox="0 0 14 17" fill="none"><path d="M11.6 8.97c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.7 0-1.77-.78-2.9-.76A4.28 4.28 0 0 0 .44 6.44c-1.54 2.67-.39 6.63 1.1 8.8.74 1.06 1.61 2.26 2.76 2.22 1.1-.05 1.53-.72 2.87-.72 1.33 0 1.72.72 2.88.69 1.19-.02 1.94-1.08 2.67-2.15a9.88 9.88 0 0 0 1.21-2.49 3.62 3.62 0 0 1-2.33-3.82ZM9.5 2.72A3.68 3.68 0 0 0 10.35 0a3.74 3.74 0 0 0-2.42 1.25 3.5 3.5 0 0 0-.88 2.53 3.1 3.1 0 0 0 2.45-1.06Z" fill="#5a9ff0"/></svg>
-          App Store
-        </a>
-      </div>
-    </div>
-  </article>
-
+      <a href="https://www.crazygames.com/game/crossing-heroes" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-crazy"/></svg>CrazyGames</a>
+      <a href="https://yjsgames.itch.io/" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io</a>
+    </nav>
+  </div>
 </section>
 
-<!-- Direct support information for app store review and users -->
-<section class="support-summary" aria-labelledby="support-title">
-  <div class="support-panel">
-    <h2 id="support-title" data-i18n="supportHeading">Support</h2>
-    <p data-i18n="supportIntro">게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.</p>
-    <div class="support-links">
-      <a class="support-link" href="support/" data-i18n="supportPage">지원 페이지</a>
-      <a class="support-link" href="mailto:helpyjs@gmail.com">helpyjs@gmail.com</a>
-      <a class="support-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener" data-i18n="privacyDelete">개인정보 · 계정삭제</a>
+<!-- 대표 게임 -->
+<section class="section" id="featured" style="padding-top:0">
+  <div class="wrap">
+    <article class="featured reveal">
+      <div class="featured-art"><img src="assets/banner-crossing-heroes.jpg" alt="Crossing Heroes" width="1024" height="500"></div>
+      <div class="featured-body">
+        <div class="badges">
+          <span class="badge new" data-new-since="2026-10-07">NEW</span>
+          <span class="badge web" data-i18n="badgeBrowser">브라우저 플레이</span>
+          <span class="badge">2026</span>
+        </div>
+        <h3><span data-i18n="crossingTitle">길건너 용사들</span><small data-i18n="crossingSubtitle">Crossing Heroes</small></h3>
+        <p data-i18n="crossingFeatured">몬스터와 마차가 오가는 중세 판타지 세계를 한 칸씩 건너는 복셀 액션. 설치 없이 지금 바로 플레이하세요.</p>
+        <div class="cta-row">
+          <a class="cta cta-primary" href="https://www.crazygames.com/game/crossing-heroes" target="_blank" rel="noopener"><span class="play-ico"></span><span data-i18n="playOnCrazy">CrazyGames에서 플레이</span></a>
+          <a class="cta cta-ghost" href="https://yjsgames.itch.io/crossing-heroes" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io</a>
+          <button class="cta cta-ghost" type="button" data-open="crossing" data-i18n="gameInfo">게임 정보</button>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 게임 목록 -->
+<section class="section" id="games">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2 data-i18n="gamesHeading">게임</h2>
+        <p data-i18n="gamesIntro">카드를 눌러 스크린샷과 상세 소개를 볼 수 있어요.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Platform filter">
+        <button type="button" data-filter="all" aria-pressed="true" data-i18n="filterAll">전체</button>
+        <button type="button" data-filter="mobile" aria-pressed="false" data-i18n="filterMobile">모바일</button>
+        <button type="button" data-filter="web" aria-pressed="false" data-i18n="filterWeb">브라우저</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Card: Crossing Heroes -->
+      <article class="card reveal" data-game="crossing" data-platform="web">
+        <div class="card-top">
+          <div class="blur" style="background-image:url(assets/icon-crossing-heroes.png)"></div>
+          <a href="https://www.crazygames.com/game/crossing-heroes" target="_blank" rel="noopener" aria-label="Crossing Heroes"><img src="assets/icon-crossing-heroes.png" alt="Crossing Heroes icon" width="92" height="92"></a>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="crossingTitle">길건너 용사들</h3>
+          <div class="meta"><span class="badge new" data-new-since="2026-10-07">NEW</span><span class="tag" data-i18n="tagAction">액션</span><span class="tag">2026</span></div>
+          <p class="card-desc" data-i18n="crossingDesc">빈틈을 기다리고 길을 골라 한 칸씩 전진하는 복셀 모험.</p>
+          <div class="platforms">
+            <a class="pf crazy" href="https://www.crazygames.com/game/crossing-heroes" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-crazy"/></svg>CrazyGames</a>
+            <a class="pf itch" href="https://yjsgames.itch.io/crossing-heroes" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io</a>
+          </div>
+          <button class="more" type="button" data-open="crossing" data-i18n="moreInfo">스크린샷 · 상세 보기</button>
+        </div>
+      </article>
+
+      <!-- Card: Claw Gallery -->
+      <article class="card reveal" data-game="claw" data-platform="mobile web">
+        <div class="card-top">
+          <div class="blur" style="background-image:url(assets/icon-claw-gallery.png)"></div>
+          <a class="platform-link" href="https://yjsgames.itch.io/claw-gallery" data-ios-href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener" aria-label="Claw Gallery store page"><img src="assets/icon-claw-gallery.png" alt="Claw Gallery icon" width="92" height="92"></a>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="clawTitle">뽑아모아: 인형뽑기</h3>
+          <div class="meta"><span class="tag" data-i18n="tagCasual">캐주얼</span><span class="tag">2026</span></div>
+          <p class="card-desc" data-i18n="clawDesc">집게로 봉제인형을 뽑아 나만의 전시관을 채우는 인형뽑기 게임.</p>
+          <div class="platforms">
+            <a class="pf as" href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store</a>
+            <a class="pf itch" href="https://yjsgames.itch.io/claw-gallery" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io <span class="mini">DEMO</span></a>
+          </div>
+          <button class="more" type="button" data-open="claw" data-i18n="moreInfo">스크린샷 · 상세 보기</button>
+        </div>
+      </article>
+
+      <!-- Card: Reborn Starship Idle -->
+      <article class="card reveal" data-game="starship" data-platform="mobile web">
+        <div class="card-top">
+          <div class="blur" style="background-image:url(assets/icon-reborn-starship-idle.png)"></div>
+          <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" data-ios-href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener" aria-label="Reborn Starship Idle store page"><img src="assets/icon-reborn-starship-idle.png" alt="Reborn Starship Idle icon" width="92" height="92"></a>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="starshipTitle">환생 우주선 방치하기</h3>
+          <div class="meta"><span class="tag" data-i18n="tagIdle">방치형</span><span class="tag" data-i18n="tagDefense">디펜스</span><span class="tag">2026</span></div>
+          <p class="card-desc" data-i18n="starshipDesc">모듈을 연결해 함선을 키우는 방치형 우주 디펜스.</p>
+          <div class="platforms">
+            <a class="pf gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idlebrick&amp;hl=ko" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-gp"/></svg>Google Play</a>
+            <a class="pf as" href="https://apps.apple.com/us/app/reborn-starship-idle/id6780450541" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store</a>
+            <a class="pf toss" href="intoss://reborn-starship-idle" data-i18n-title="tossTitle"><img src="assets/icon-apps-in-toss.png" alt="" width="16" height="16"><span data-i18n="tossLabel">앱인토스</span></a>
+            <a class="pf itch" href="https://yjsgames.itch.io/reborn-starship-idle" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io <span class="mini">DEMO</span></a>
+          </div>
+          <button class="more" type="button" data-open="starship" data-i18n="moreInfo">스크린샷 · 상세 보기</button>
+        </div>
+      </article>
+
+      <!-- Card: Rebirth Forge Idle -->
+      <article class="card reveal" data-game="forge" data-platform="mobile">
+        <div class="card-top">
+          <div class="blur" style="background-image:url(assets/icon-rebirth-forge-idle.png)"></div>
+          <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" data-ios-href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener" aria-label="Rebirth Forge Idle store page"><img src="assets/icon-rebirth-forge-idle.png" alt="Rebirth Forge Idle icon" width="92" height="92"></a>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="forgeTitle">환생대장간 방치하기</h3>
+          <div class="meta"><span class="tag" data-i18n="tagIdle">방치형</span><span class="tag" data-i18n="tagEnhance">강화</span><span class="tag">2026</span></div>
+          <p class="card-desc" data-i18n="forgeDesc">운 기반 방치형 제작 — 검을 재련하고 영구 환생 성장을 해금하세요.</p>
+          <div class="platforms">
+            <a class="pf gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.idleblade" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-gp"/></svg>Google Play</a>
+            <a class="pf as" href="https://apps.apple.com/us/app/rebirth-forge-idle-rng-sword/id6760809332" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store</a>
+          </div>
+          <button class="more" type="button" data-open="forge" data-i18n="moreInfo">스크린샷 · 상세 보기</button>
+        </div>
+      </article>
+
+      <!-- Card: Idle Hero Reborn -->
+      <article class="card reveal" data-game="hero" data-platform="mobile">
+        <div class="card-top">
+          <div class="blur" style="background-image:url(assets/icon-idle-hero-reborn.png)"></div>
+          <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" data-ios-href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener" aria-label="Idle Hero Reborn store page"><img src="assets/icon-idle-hero-reborn.png" alt="Idle Hero Reborn icon" width="92" height="92"></a>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title" data-i18n="heroTitle">환생용사 방치하기</h3>
+          <div class="meta"><span class="tag" data-i18n="tagIdle">방치형</span><span class="tag">RPG</span><span class="tag">2025</span></div>
+          <p class="card-desc" data-i18n="heroDesc">자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.</p>
+          <div class="platforms">
+            <a class="pf gp" href="https://play.google.com/store/apps/details?id=com.yjsgames.dotknight" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-gp"/></svg>Google Play</a>
+            <a class="pf as" href="https://apps.apple.com/us/app/idle-hero-reborn/id6757685476" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store</a>
+            <a class="pf toss" href="intoss://dotknight" data-i18n-title="tossTitle"><img src="assets/icon-apps-in-toss.png" alt="" width="16" height="16"><span data-i18n="tossLabel">앱인토스</span></a>
+          </div>
+          <button class="more" type="button" data-open="hero" data-i18n="moreInfo">스크린샷 · 상세 보기</button>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- Notion official page link -->
-<div class="notion-bar">
-  <a class="notion-link" href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener">
-    <span data-i18n="officialGuide">공식 안내 · 개인정보 · 계정삭제 · 문의 →</span>
-  </a>
-</div>
+<!-- 지원: App Store 심사와 사용자 문의용 -->
+<section class="section" id="support">
+  <div class="wrap">
+    <div class="support reveal">
+      <div>
+        <h2 id="support-title" data-i18n="supportHeading">지원</h2>
+        <p data-i18n="supportIntro">게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.</p>
+      </div>
+      <div class="support-links" aria-labelledby="support-title">
+        <a href="support/"><span data-i18n="supportPage">지원 페이지</span><span>→</span></a>
+        <a href="mailto:helpyjs@gmail.com"><span>helpyjs@gmail.com</span><span>✉</span></a>
+        <a href="https://radical-hardware-3ce.notion.site/YJS-Games-2e99af13eb298028986eeca1b7f80fe7" target="_blank" rel="noopener"><span data-i18n="officialGuide">공식 안내 · 개인정보 · 계정삭제</span><span>↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Footer -->
-<footer>
-  &copy; 2026 YJS Games. All rights reserved.
-</footer>
+<footer>&copy; 2026 YJS Games. All rights reserved.</footer>
+
+<!-- 스토어형 상세 창 -->
+<dialog id="detail" aria-labelledby="d-title">
+  <button class="d-close" type="button" data-i18n-aria="close" aria-label="닫기">✕</button>
+  <div class="d-head">
+    <img id="d-icon" src="assets/icon-crossing-heroes.png" alt="">
+    <div>
+      <h3 id="d-title"></h3>
+      <div class="dev">YJS Games</div>
+      <div class="meta" id="d-tags" style="margin-top:8px"></div>
+      <!-- 모달이 열리면 바깥 헤더는 비활성화되므로 상세 창 안에도 같은 언어 전환을 둔다 -->
+      <div class="language-switch d-lang" role="group" aria-label="Language">
+        <button type="button" data-lang-option="ko" aria-label="한국어">한글</button>
+        <button type="button" data-lang-option="en" aria-label="English">EN</button>
+      </div>
+    </div>
+  </div>
+  <div class="d-body">
+    <div class="shots" id="d-shots"></div>
+    <div class="d-section">
+      <h4 data-i18n="aboutHeading">게임 정보</h4>
+      <p id="d-about"></p>
+      <ul class="features" id="d-features"></ul>
+    </div>
+    <div class="d-platforms" id="d-platforms"></div>
+  </div>
+</dialog>
 
 <script>
+document.documentElement.classList.add("js");
+
 const i18n={
   ko:{
     title:"YJS Games",
-    description:"YJS Games — 뽑아모아: 인형뽑기, 환생 우주선 방치하기, 환생대장간 방치하기, 환생용사 방치하기 게임과 공식 지원 정보를 제공합니다.",
-    tagline:"Mobile Idle Games Studio",
-    clawTitle:"뽑아모아: 인형뽑기",
-    clawYear:"2026",
-    clawDesc:"집게로 봉제인형을 뽑아 나만의 전시관을 채우는 인형뽑기 게임.",
-    starshipTitle:"환생 우주선 방치하기",
-    starshipYear:"2026",
-    starshipDesc:"모듈을 연결해 함선을 키우는 방치형 우주 디펜스.",
-    rebirthForgeTitle:"환생대장간 방치하기: 운빨 검 키우기",
-    rebirthForgeYear:"2026",
-    rebirthForgeDesc:"운 기반 방치형 제작 — 검을 재련하고 영구 환생 성장을 해금하세요.",
-    idleHeroTitle:"환생용사 방치하기",
-    idleHeroYear:"2025",
-    idleHeroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
-    tossLabel:"앱인토스",
-    tossTitle:"토스 앱에서 플레이할 수 있어요",
+    description:"YJS Games — 길건너 용사들, 뽑아모아: 인형뽑기, 환생 우주선 방치하기, 환생대장간 방치하기, 환생용사 방치하기 게임과 공식 지원 정보를 제공합니다.",
+    navGames:"게임",navSupport:"지원",
+    eyebrow:"새 게임 · 길건너 용사들 브라우저 출시",
+    lead:"모바일과 웹에서 가볍게 시작해 오래 즐기는 게임을 만듭니다.",
+    statGames:"출시 게임",statPlatforms:"플랫폼",statSince:"첫 출시",
+    badgeBrowser:"브라우저 플레이",
+    crossingSubtitle:"Crossing Heroes",
+    crossingFeatured:"몬스터와 마차가 오가는 중세 판타지 세계를 한 칸씩 건너는 복셀 액션. 설치 없이 지금 바로 플레이하세요.",
+    playOnCrazy:"CrazyGames에서 플레이",gameInfo:"게임 정보",
+    gamesHeading:"게임",gamesIntro:"카드를 눌러 스크린샷과 상세 소개를 볼 수 있어요.",
+    filterAll:"전체",filterMobile:"모바일",filterWeb:"브라우저",
+    moreInfo:"스크린샷 · 상세 보기",
+    tagAction:"액션",tagCasual:"캐주얼",tagIdle:"방치형",tagDefense:"디펜스",tagEnhance:"강화",
+    crossingTitle:"길건너 용사들",crossingDesc:"빈틈을 기다리고 길을 골라 한 칸씩 전진하는 복셀 모험.",
+    clawTitle:"뽑아모아: 인형뽑기",clawDesc:"집게로 봉제인형을 뽑아 나만의 전시관을 채우는 인형뽑기 게임.",
+    starshipTitle:"환생 우주선 방치하기",starshipDesc:"모듈을 연결해 함선을 키우는 방치형 우주 디펜스.",
+    forgeTitle:"환생대장간 방치하기",forgeDesc:"운 기반 방치형 제작 — 검을 재련하고 영구 환생 성장을 해금하세요.",
+    heroTitle:"환생용사 방치하기",heroDesc:"자동 전투 방치형 RPG — 월드, 유물, 환생 업그레이드로 이어지는 성장.",
+    tossLabel:"앱인토스",tossTitle:"토스 앱에서 플레이할 수 있어요",
     supportHeading:"지원",
     supportIntro:"게임 이용 문의, 오류 제보, 피드백은 이메일로 보내 주세요. App Store 지원 URL은 아래 지원 페이지를 사용합니다.",
-    supportPage:"지원 페이지",
-    privacyDelete:"개인정보 · 계정삭제",
-    officialGuide:"공식 안내 · 개인정보 · 계정삭제 · 문의 →"
+    supportPage:"지원 페이지",officialGuide:"공식 안내 · 개인정보 · 계정삭제",
+    aboutHeading:"게임 정보",close:"닫기",
+    recommend:"추천",ratingsTitle:"스토어 평가 {count}건",screenshot:"스크린샷"
   },
   en:{
     title:"YJS Games",
-    description:"YJS Games provides Claw Gallery, Reborn Starship Idle, Idle Hero Reborn, Rebirth Forge Idle, and official support information.",
-    tagline:"Mobile Idle Games Studio",
-    clawTitle:"Claw Gallery",
-    clawYear:"2026",
-    clawDesc:"Grab plush toys with the claw and fill your own gallery.",
-    starshipTitle:"Reborn Starship Idle",
-    starshipYear:"2026",
-    starshipDesc:"Link modules, empower energy bolts, and push through idle space battles.",
-    rebirthForgeTitle:"Rebirth Forge Idle",
-    rebirthForgeYear:"2026",
-    rebirthForgeDesc:"Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.",
-    idleHeroTitle:"Idle Hero Reborn",
-    idleHeroYear:"2025",
-    idleHeroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
-    tossLabel:"Apps in Toss",
-    tossTitle:"Play inside the Toss app",
+    description:"YJS Games provides Crossing Heroes, Claw Gallery, Reborn Starship Idle, Rebirth Forge Idle, Idle Hero Reborn, and official support information.",
+    navGames:"Games",navSupport:"Support",
+    eyebrow:"New · Crossing Heroes is playable in your browser",
+    lead:"Games that are quick to start and fun to keep playing, on mobile and the web.",
+    statGames:"Games",statPlatforms:"Platforms",statSince:"First release",
+    badgeBrowser:"Play in browser",
+    crossingSubtitle:"길건너 용사들",
+    crossingFeatured:"A voxel action game about crossing a medieval fantasy world one step at a time. No install needed — play right now.",
+    playOnCrazy:"Play on CrazyGames",gameInfo:"Game info",
+    gamesHeading:"Games",gamesIntro:"Open a card to see screenshots and the full description.",
+    filterAll:"All",filterMobile:"Mobile",filterWeb:"Browser",
+    moreInfo:"Screenshots & details",
+    tagAction:"Action",tagCasual:"Casual",tagIdle:"Idle",tagDefense:"Defense",tagEnhance:"Upgrade",
+    crossingTitle:"Crossing Heroes",crossingDesc:"Wait for a gap, choose your route, and step forward through a voxel adventure.",
+    clawTitle:"Claw Gallery",clawDesc:"Grab plush toys with the claw and fill your own gallery.",
+    starshipTitle:"Reborn Starship Idle",starshipDesc:"Link modules, empower energy bolts, and push through idle space battles.",
+    forgeTitle:"Rebirth Forge Idle",forgeDesc:"Luck-driven idle forging — reforge swords and unlock permanent rebirth progression.",
+    heroTitle:"Idle Hero Reborn",heroDesc:"Auto-battle idle RPG — growth across worlds, relics, and rebirth upgrades.",
+    tossLabel:"Apps in Toss",tossTitle:"Play inside the Toss app",
     supportHeading:"Support",
     supportIntro:"For gameplay issues, bug reports, or feedback, contact us by email. Use the support page below for App Store support.",
-    supportPage:"Support page",
-    privacyDelete:"Privacy · Account deletion",
-    officialGuide:"Official guide · Privacy · Account deletion · Contact →"
+    supportPage:"Support page",officialGuide:"Official guide · Privacy · Account deletion",
+    aboutHeading:"About this game",close:"Close",
+    recommend:"Top rated",ratingsTitle:"{count} store ratings",screenshot:"screenshot"
   }
 };
-function applyLanguage(lang){
-  const selected=i18n[lang]?lang:"en";
-  document.documentElement.lang=selected;
-  document.title=i18n[selected].title;
-  const meta=document.querySelector('meta[name="description"]');
-  if(meta) meta.content=i18n[selected].description;
-  document.querySelectorAll("[data-i18n]").forEach((el)=>{
-    const key=el.dataset.i18n;
-    if(i18n[selected][key]) el.textContent=i18n[selected][key];
-  });
-  document.querySelectorAll("[data-i18n-title]").forEach((el)=>{
-    const key=el.dataset.i18nTitle;
-    if(i18n[selected][key]) el.title=i18n[selected][key];
-  });
-  document.querySelectorAll("[data-lang-option]").forEach((button)=>{
-    button.setAttribute("aria-pressed", String(button.dataset.langOption===selected));
-  });
-  localStorage.setItem("yjsgames-lang", selected);
-}
-document.querySelectorAll("[data-lang-option]").forEach((button)=>{
-  button.addEventListener("click",()=>applyLanguage(button.dataset.langOption));
-});
-const savedLang=localStorage.getItem("yjsgames-lang");
-applyLanguage(savedLang||((navigator.language||"").toLowerCase().startsWith("ko")?"ko":"en"));
 
+// 스토어형 상세 창 데이터. 스크린샷은 assets/screens/ (언어별 이미지가 없으면 공용 이미지)
+const S="assets/screens/";
+const games={
+  crossing:{
+    icon:"assets/icon-crossing-heroes.png",
+    ko:{title:"길건너 용사들 · Crossing Heroes",tags:["액션","복셀","브라우저","2026"],
+      shots:["crossing-ko-1","crossing-ko-2","crossing-ko-3"],
+      about:"몬스터와 마차가 오가는 중세 판타지 세계를 한 칸씩 건너는 복셀 액션 게임입니다. 빈틈을 기다리고, 길을 고르고, 나만의 최고 기록에 도전하세요.",
+      features:[["다섯 가지 풍경","소나무 숲·사막·고지대·설산·대나무 숲. 밤이 오면 더 어려운 여정이 시작됩니다."],["한 칸마다 다른 위험","달리는 마차와 수정 열차, 움직이는 몬스터와 함정 사이에서 타이밍을 찾으세요."],["나에게 맞는 용사","모험가·기사·마법사·나무꾼 등 능력이 다른 캐릭터를 모아 성장시키세요."],["마을에서 정비","여관과 대장간에서 다음 구간을 준비하세요."]]},
+    en:{title:"Crossing Heroes",tags:["Action","Voxel","Browser","2026"],
+      shots:["crossing-en-1","crossing-en-2"],
+      about:"Crossing Heroes is a voxel action game about crossing a medieval fantasy world, one step at a time. Wait for a gap, choose your route, and see how far your hero can go.",
+      features:[["Five landscapes","Pine forests, deserts, highlands, snowy mountains, and bamboo groves — and a tougher journey after night falls."],["Time every crossing","Dodge wagons and crystal trains, watch moving monsters, and find a safe way through traps."],["Find your hero","Collect and level up adventurers, knights, wizards, lumberjacks, and more."],["Rest in villages","Visit inns and blacksmiths to prepare for the road ahead."]]}
+  },
+  claw:{
+    icon:"assets/icon-claw-gallery.png",
+    ko:{title:"뽑아모아: 인형뽑기",tags:["캐주얼","수집","2026"],shots:["claw-1","claw-2","claw-3"],
+      about:"집게를 움직여 마음에 드는 인형을 노려 보세요. 인형뽑기의 손맛과 수집의 즐거움을 함께 담은 캐주얼 게임입니다. 집게를 내리고, 인형을 들어 올리고, 무사히 수거되는 순간을 지켜보세요.",
+      features:[["인형뽑기의 손맛","조이스틱으로 조준하고 뽑기 버튼으로 집게를 내리세요."],["나만의 전시장","모은 인형과 집·가구를 배치해 작은 친구들의 공간을 꾸미세요."],["전시장 수익으로 성장","목표를 달성하고 다음 뽑기 머신에 도전하세요."]]},
+    en:{title:"Claw Gallery",tags:["Casual","Collection","2026"],shots:["claw-1","claw-2","claw-3"],
+      about:"Line up your claw and aim for your next favorite plush! Claw Gallery combines the fun of a claw machine with the joy of collecting. Lower the claw, lift a toy, and watch to see whether it makes it safely into your collection.",
+      features:[["Claw machine fun","Aim with the joystick and tap Grab to lower the claw."],["Your own gallery","Arrange houses and furniture to create little homes for your plush friends."],["Grow with your gallery","Use gallery earnings, complete goals, and unlock new claw machines."]]}
+  },
+  starship:{
+    icon:"assets/icon-reborn-starship-idle.png",
+    ko:{title:"환생 우주선 방치하기",tags:["방치형","디펜스","2026"],shots:["starship-ko-1","starship-ko-2","starship-ko-3"],
+      about:"함선 자동 전투와 모듈 배치 성장을 결합한 세로형 방치 우주 디펜스 게임입니다. 위에서는 함선이 침공 드론을 막고, 아래에서는 모듈을 연결해 에너지탄의 성능을 바꿉니다.",
+      features:[["모듈 연결 전략","모듈 배치와 연결 라인으로 에너지탄이 달라집니다."],["끝없는 성장 루프","골드·다이아·모듈·함선·유물·환생으로 이어지는 성장."],["짧게 켜도 쌓이는 진행","접속하지 않는 동안에도 방치형 진행이 누적됩니다."]]},
+    en:{title:"Reborn Starship Idle",tags:["Idle","Defense","2026"],shots:["starship-en-1","starship-en-2","starship-en-3"],
+      about:"A vertical idle space defense game that combines automatic starship battles with module-based growth. Your starship holds back invading drones up top, while you link modules below to change how your energy bolts perform.",
+      features:[["Module strategy","Module placement and link lines reshape your energy bolts."],["Endless growth loop","Gold, diamonds, modules, starships, relics, and rebirth."],["Progress while away","Idle progress keeps building even between short sessions."]]}
+  },
+  forge:{
+    icon:"assets/icon-rebirth-forge-idle.png",
+    ko:{title:"환생대장간 방치하기: 운빨 검 키우기",tags:["방치형","강화","2026"],shots:["forge-ko-1","forge-ko-2","forge-ko-3"],
+      about:"강화·재련이 메인인 방치형 성장 게임입니다. 랜덤으로 얻은 검을 재련하고, 성공·보존·파괴의 리스크를 뚫어 더 높은 레벨의 검과 희귀 트레잇을 노리세요. 한 번만 더!",
+      features:[["운빨 강화 루프","강화할수록 비용은 오르고 확률은 내려갑니다."],["랜덤 검 수집","검도, 트레잇도 랜덤. 강화 중 이벤트 선택으로 능력이 바뀝니다."],["환생 메타 성장","환생 포인트로 영구 업그레이드를 해금하세요."]]},
+    en:{title:"Rebirth Forge Idle: RNG Sword",tags:["Idle","Upgrade","2026"],shots:["forge-en-1","forge-en-2","forge-en-3"],
+      about:"An idle growth game focused on enhancement and reforging. Reforge randomly obtained swords, overcome the risks of success, preservation, or destruction, and aim for higher-level swords with rare traits. One more try!",
+      features:[["Luck-based enhancement","The more you enhance, the higher the cost and the lower the odds."],["Random sword collection","Swords and traits are random, and enhancement events change your stats."],["Rebirth meta growth","Spend rebirth points on permanent upgrades."]]}
+  },
+  hero:{
+    icon:"assets/icon-idle-hero-reborn.png",
+    ko:{title:"환생용사 방치하기",tags:["방치형","RPG","2025"],shots:["hero-ko-1","hero-ko-2","hero-ko-3"],
+      about:"자동 전투로 진행되는 방치형 RPG입니다. 용사는 스스로 전진하며 몬스터, 엘리트 몬스터, 보스와 부딪혀 싸웁니다.",
+      features:[["자동 전투","용사가 알아서 전진하며 싸웁니다."],["월드와 유물","보스를 처치하면 다음 월드로 진입하고 강력한 유물을 얻습니다."],["환생 성장","일정 챕터를 지나면 환생해 더 높은 단계로 성장합니다."]]},
+    en:{title:"Idle Hero Reborn",tags:["Idle","RPG","2025"],shots:["hero-en-1","hero-en-2","hero-en-3"],
+      about:"Idle Hero Reborn is an auto-battle idle RPG. Your hero marches forward, colliding with monsters, elites, and bosses.",
+      features:[["Auto battle","Your hero marches forward and fights on its own."],["Worlds and relics","Defeat bosses to enter new worlds and earn powerful relics."],["Rebirth growth","After enough chapters, rebirth for permanent upgrades."]]}
+  }
+};
+
+let lang="ko";
+let ratings={};
+let openId=null;
+const t=(key)=>i18n[lang][key]??i18n.ko[key]??"";
+const esc=(s)=>String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function readStoredLang(){try{return localStorage.getItem("yjsgames-lang");}catch{return null;}}
+function storeLang(v){try{localStorage.setItem("yjsgames-lang",v);}catch{}}
+
+function applyLanguage(next){
+  lang=i18n[next]?next:"en";
+  document.documentElement.lang=lang;
+  document.title=t("title");
+  const meta=document.querySelector('meta[name="description"]');
+  if(meta) meta.content=t("description");
+  document.querySelectorAll("[data-i18n]").forEach((el)=>{const v=i18n[lang][el.dataset.i18n]; if(v) el.textContent=v;});
+  document.querySelectorAll("[data-i18n-title]").forEach((el)=>{el.title=t(el.dataset.i18nTitle);});
+  document.querySelectorAll("[data-i18n-aria]").forEach((el)=>{el.setAttribute("aria-label",t(el.dataset.i18nAria));});
+  document.querySelectorAll("[data-lang-option]").forEach((b)=>b.setAttribute("aria-pressed",String(b.dataset.langOption===lang)));
+  renderRecommendBadges();
+  if(openId) renderDetail(openId);
+  storeLang(lang);
+}
+
+// 추천 배지 — data/ratings.json 은 GitHub Actions 가 매주 갱신한다(tools/update-ratings.mjs).
+// 판정은 그 스크립트가 끝내 두므로 여기서는 recommended 만 본다. 파일을 못 읽으면 배지 없이 둔다.
+function recBadge(g){
+  return `<span class="badge rec" title="${esc(t("ratingsTitle").replace("{count}",g.count.toLocaleString()))}">${esc(t("recommend"))} ★${g.rating.toFixed(1)}</span>`;
+}
+function renderRecommendBadges(){
+  document.querySelectorAll(".card[data-game]").forEach((card)=>{
+    card.querySelector(".badge.rec")?.remove();
+    const g=ratings[card.dataset.game];
+    if(g?.recommended) card.querySelector(".meta").insertAdjacentHTML("afterbegin",recBadge(g));
+  });
+}
+fetch("data/ratings.json",{cache:"no-cache"}).then((r)=>r.ok?r.json():null).then((data)=>{
+  ratings=data?.games||{};
+  renderRecommendBadges();
+  if(openId) renderDetail(openId);
+}).catch(()=>{});
+
+// 스토어형 상세 창
+const dlg=document.getElementById("detail");
+function renderDetail(id){
+  const game=games[id]; const g=game[lang]||game.ko;
+  document.getElementById("d-icon").src=game.icon;
+  document.getElementById("d-title").textContent=g.title;
+  document.getElementById("d-tags").innerHTML=(ratings[id]?.recommended?recBadge(ratings[id]):"")+g.tags.map((x)=>`<span class="tag">${esc(x)}</span>`).join("");
+  document.getElementById("d-shots").innerHTML=g.shots.map((s)=>`<img src="${S}${s}.jpg" alt="${esc(g.title)} ${esc(t("screenshot"))}" loading="lazy">`).join("");
+  document.getElementById("d-about").textContent=g.about;
+  document.getElementById("d-features").innerHTML=g.features.map(([h,b])=>`<li><b>${esc(h)}</b>${esc(b)}</li>`).join("");
+  const card=document.querySelector(`.card[data-game="${id}"]`);
+  document.getElementById("d-platforms").innerHTML=card?card.querySelector(".platforms").innerHTML:"";
+}
+function openGame(id){
+  if(!games[id]) return;
+  openId=id; renderDetail(id);
+  dlg.showModal();
+  document.getElementById("d-shots").scrollLeft=0;
+}
+document.querySelectorAll("[data-open]").forEach((b)=>b.addEventListener("click",()=>openGame(b.dataset.open)));
+dlg.querySelector(".d-close").addEventListener("click",()=>dlg.close());
+dlg.addEventListener("click",(e)=>{if(e.target===dlg) dlg.close();});
+dlg.addEventListener("close",()=>{openId=null;});
+
+// 플랫폼 필터
+document.querySelectorAll("[data-filter]").forEach((btn)=>{
+  btn.addEventListener("click",()=>{
+    const f=btn.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach((b)=>b.setAttribute("aria-pressed",String(b===btn)));
+    document.querySelectorAll(".card").forEach((c)=>{c.hidden=f!=="all"&&!c.dataset.platform.split(" ").includes(f);});
+  });
+});
+
+// NEW 자동 만료 — 출시일(data-new-since)부터 NEW_DAYS일이 지나면 지운다. 날짜만 적고 나중에 지울 필요 없음
+const NEW_DAYS=30;
+document.querySelectorAll("[data-new-since]").forEach((el)=>{
+  const since=new Date(el.dataset.newSince+"T00:00:00+09:00");
+  if(isNaN(since)||Date.now()-since>NEW_DAYS*864e5) el.remove();
+});
+
+// 스크롤 등장
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver((es)=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll(".reveal").forEach((el)=>io.observe(el));
+}else{
+  document.querySelectorAll(".reveal").forEach((el)=>el.classList.add("in"));
+}
+
+document.querySelectorAll("[data-lang-option]").forEach((b)=>b.addEventListener("click",()=>applyLanguage(b.dataset.langOption)));
+applyLanguage(readStoredLang()||((navigator.language||"").toLowerCase().startsWith("ko")?"ko":"en"));
+
+// iOS 기기에서는 아이콘 링크를 App Store 로
 const isAppleStoreDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1;
 if(isAppleStoreDevice){
-  document.querySelectorAll(".platform-link[data-ios-href]").forEach((link)=>{
-    link.href=link.dataset.iosHref;
-  });
+  document.querySelectorAll(".platform-link[data-ios-href]").forEach((link)=>{link.href=link.dataset.iosHref;});
 }
 </script>
 </body>
