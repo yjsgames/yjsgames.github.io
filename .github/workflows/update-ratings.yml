@@ -29,23 +29,32 @@ jobs:
       - name: Test rating rules
         run: node --test tools/update-ratings.test.mjs
 
-      - name: Fetch ratings
-        run: node tools/update-ratings.mjs
-
-      - name: Commit if changed
+      # 매 시도마다 최신 main 에서 다시 생성한다. push 가 거절되면 낡은 생성물 커밋을 rebase 해 재사용하지 않고
+      # (그 사이 바뀐 ratings-config.json 과 어긋날 수 있다) 최신 main 으로 되돌려 처음부터 다시 만든다.
+      # 두 번 연속 경합하면 이번 주는 실패로 끝낸다 — 다음 주 실행이나 수동 실행이 이어받는다.
+      - name: Fetch ratings and commit if changed
         id: commit
         run: |
-          if git diff --quiet -- data/ratings.json; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/ratings.json
-          git commit -m "chore: 스토어 평점 주간 갱신"
-          # 실행 중 main 에 다른 커밋이 들어오면 push 가 거절되므로 한 번 rebase 후 재시도한다
-          git push || { git pull --rebase origin main && git push; }
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+          for attempt in 1 2; do
+            git fetch origin main
+            git reset --hard origin/main
+            node tools/update-ratings.mjs
+            if git diff --quiet -- data/ratings.json; then
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            git add data/ratings.json
+            git commit -m "chore: 스토어 평점 주간 갱신"
+            if git push origin HEAD:main; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "::warning::push 거절(시도 $attempt) — 최신 main 에서 다시 생성합니다"
+          done
+          echo "::error::main 과 두 번 연속 경합해 이번 실행을 건너뜁니다"
+          exit 1
 
       # GITHUB_TOKEN 으로 한 push 는 다른 워크플로를 깨우지 않으므로 Pages 빌드를 직접 요청한다.
       - name: Rebuild GitHub Pages

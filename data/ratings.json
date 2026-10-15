@@ -11,10 +11,12 @@
       "recommended": true,
       "stores": {
         "appStore": {
+          "id": "6757685476",
           "rating": 4.48,
           "count": 42
         },
         "googlePlay": {
+          "id": "com.yjsgames.dotknight",
           "rating": 4.73,
           "count": 378
         }
@@ -26,10 +28,12 @@
       "recommended": false,
       "stores": {
         "appStore": {
+          "id": "6760809332",
           "rating": 3,
           "count": 2
         },
         "googlePlay": {
+          "id": "com.yjsgames.idleblade",
           "rating": 3.63,
           "count": 30
         }
@@ -41,10 +45,12 @@
       "recommended": false,
       "stores": {
         "appStore": {
+          "id": "6780450541",
           "rating": 5,
           "count": 1
         },
         "googlePlay": {
+          "id": "com.yjsgames.idlebrick",
           "rating": 3.8,
           "count": 16
         }

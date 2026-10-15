@@ -46,20 +46,27 @@ test("4점 미만이면 추천하지 않는다", () => {
   assert.equal(isRecommended({ rating: null, count: 0 }, RULE), false);
 });
 
-test("조회 실패면 직전 값을 유지한다", () => {
-  const prev = { rating: 4.5, count: 40 };
-  assert.deepEqual(pickStore({ ok: false }, prev), prev);
-  assert.equal(pickStore({ ok: false }, undefined), null);
+test("조회 실패면 같은 스토어 ID 의 직전 값을 유지한다", () => {
+  const prev = { id: "111", rating: 4.5, count: 40 };
+  assert.deepEqual(pickStore({ ok: false }, prev, "111"), prev);
+  assert.equal(pickStore({ ok: false }, undefined, "111"), null);
 });
 
-test("정상 조회 결과로 값을 바꾼다", () => {
-  const prev = { rating: 4.5, count: 40 };
-  assert.deepEqual(pickStore({ ok: true, value: { rating: 4.6, count: 41 } }, prev), { rating: 4.6, count: 41 });
+test("조회 실패여도 스토어 ID 가 바뀌었으면 옛 ID 의 평점을 넘겨받지 않는다", () => {
+  assert.equal(pickStore({ ok: false }, { id: "old", rating: 4.5, count: 40 }, "new"), null);
+});
+
+test("ID 가 없는 예전 형식의 직전 값은 재사용하지 않는다", () => {
+  assert.equal(pickStore({ ok: false }, { rating: 4.5, count: 40 }, "111"), null);
+});
+
+test("정상 조회 결과로 값을 바꾸고 스토어 ID 를 함께 저장한다", () => {
+  const prev = { id: "111", rating: 4.5, count: 40 };
+  assert.deepEqual(pickStore({ ok: true, value: { rating: 4.6, count: 41 } }, prev, "111"), { id: "111", rating: 4.6, count: 41 });
 });
 
 test("정상 조회인데 평가가 0건이면 직전 값을 지운다 (실패와 구분)", () => {
-  const prev = { rating: 4.5, count: 40 };
-  assert.equal(pickStore({ ok: true, value: null }, prev), null);
+  assert.equal(pickStore({ ok: true, value: null }, { id: "111", rating: 4.5, count: 40 }, "111"), null);
 });
 
 test("Google Play: aggregateRating 앞에 무관한 ratingValue 가 있어도 aggregateRating 값을 고른다", () => {
@@ -104,7 +111,7 @@ test("App Store: 정상 평점은 새 값으로 교체된다", () => {
 });
 
 test("App Store 비정상 응답이면 직전 값이 유지된다 (pickStore 연계)", () => {
-  const prev = { rating: 4.5, count: 40 };
-  assert.deepEqual(pickStore(appStoreOutcome({ results: [{ userRatingCount: 42 }] }), prev), prev);
-  assert.equal(pickStore(appStoreOutcome({ results: [{ averageUserRating: 0, userRatingCount: 0 }] }), prev), null);
+  const prev = { id: "111", rating: 4.5, count: 40 };
+  assert.deepEqual(pickStore(appStoreOutcome({ results: [{ userRatingCount: 42 }] }), prev, "111"), prev);
+  assert.equal(pickStore(appStoreOutcome({ results: [{ averageUserRating: 0, userRatingCount: 0 }] }), prev, "111"), null);
 });

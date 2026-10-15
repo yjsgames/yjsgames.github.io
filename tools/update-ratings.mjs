@@ -93,12 +93,14 @@ export function isRecommended(combined, { minRating, minCount }) {
 }
 
 /**
- * 조회 결과({ok, value})로 스토어 값을 정한다.
- * - 조회 실패(ok:false): 직전 값 유지 — 일시 장애로 배지가 깜빡이지 않게.
+ * 조회 결과({ok, value})로 스토어 값을 정한다. 결과에는 스토어 ID 를 함께 저장한다.
+ * - 조회 실패(ok:false): **같은 스토어 ID** 의 직전 값만 유지 — 일시 장애로 배지가 깜빡이지 않게.
+ *   설정에서 ID 가 바뀌었거나 직전 값에 ID 가 없으면 옛 평점을 넘겨받지 않는다.
  * - 정상 조회(ok:true): 그 값으로 교체. 평가 0건(value:null)이면 직전 값도 지운다.
  */
-export function pickStore(outcome, previous) {
-  return outcome.ok ? outcome.value : previous ?? null;
+export function pickStore(outcome, previous, id) {
+  if (outcome.ok) return outcome.value ? { id, ...outcome.value } : null;
+  return previous && previous.id === id ? previous : null;
 }
 
 function round2(n) {
@@ -148,10 +150,10 @@ async function main() {
     const prev = previous.games?.[key]?.stores ?? {};
     const stores = {
       appStore: ids.appStoreId
-        ? pickStore(await tryFetch(`${key} App Store`, () => fetchAppStore(ids.appStoreId, config.country)), prev.appStore)
+        ? pickStore(await tryFetch(`${key} App Store`, () => fetchAppStore(ids.appStoreId, config.country)), prev.appStore, ids.appStoreId)
         : null,
       googlePlay: ids.googlePlayId
-        ? pickStore(await tryFetch(`${key} Google Play`, () => fetchGooglePlay(ids.googlePlayId, config.country)), prev.googlePlay)
+        ? pickStore(await tryFetch(`${key} Google Play`, () => fetchGooglePlay(ids.googlePlayId, config.country)), prev.googlePlay, ids.googlePlayId)
         : null,
     };
     const combined = combine(stores);
