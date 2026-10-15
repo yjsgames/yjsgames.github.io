@@ -19,11 +19,27 @@ const CONFIG_PATH = path.join(ROOT, "data", "ratings-config.json");
 const OUTPUT_PATH = path.join(ROOT, "data", "ratings.json");
 const FETCH_TIMEOUT_MS = 20_000;
 
-/** iTunes Lookup 응답 → {rating, count}. 평가가 없으면 null. */
+/** iTunes Lookup 응답 → {rating, count}. 평가가 없거나 값이 비정상이면 null. */
 export function parseAppStore(json) {
   const r = json?.results?.[0];
   if (!r || !Number.isFinite(r.averageUserRating) || !(r.userRatingCount > 0)) return null;
   return { rating: round2(r.averageUserRating), count: r.userRatingCount };
+}
+
+/**
+ * iTunes Lookup 응답을 조회 결과({ok, value})로 분류한다.
+ * - 평가 수가 정확히 0 → 정상 결과, 평가 없음(value:null). 직전 값을 지운다.
+ * - 평가 수가 양의 정수이고 평균이 0~5 숫자 → 정상 결과.
+ * - 그 밖(앱 없음·필드 누락·비숫자·범위 밖) → 조회 실패(ok:false). 직전 값을 지킨다.
+ */
+export function appStoreOutcome(json) {
+  const r = json?.results?.[0];
+  if (!r) return { ok: false };
+  if (r.userRatingCount === 0) return { ok: true, value: null };
+  const valid =
+    Number.isInteger(r.userRatingCount) && r.userRatingCount > 0 &&
+    Number.isFinite(r.averageUserRating) && r.averageUserRating >= 0 && r.averageUserRating <= 5;
+  return valid ? { ok: true, value: parseAppStore(json) } : { ok: false };
 }
 
 /**
@@ -100,10 +116,9 @@ async function fetchText(url) {
 
 async function fetchAppStore(id, country) {
   const text = await fetchText(`https://itunes.apple.com/lookup?id=${id}&country=${country}`);
-  const json = JSON.parse(text);
-  // 앱 자체를 못 찾은 응답은 조회 실패로 본다. 앱은 찾았는데 평가가 0건이면 정상 결과(null)다.
-  if (!json?.results?.length) throw new Error("App Store 앱을 찾지 못함");
-  return parseAppStore(json);
+  const outcome = appStoreOutcome(JSON.parse(text));
+  if (!outcome.ok) throw new Error("App Store 응답이 비정상(앱 없음 또는 평점 필드 누락)");
+  return outcome.value;
 }
 
 async function fetchGooglePlay(id, country) {

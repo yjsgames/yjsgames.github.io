@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseAppStore, parseGooglePlay, combine, isRecommended, pickStore } from "./update-ratings.mjs";
+import { parseAppStore, appStoreOutcome, parseGooglePlay, combine, isRecommended, pickStore } from "./update-ratings.mjs";
 
 const RULE = { minRating: 4.0, minCount: 20 };
 
@@ -82,4 +82,29 @@ test("Google Play: JSON-LD 밖의 숫자는 쓰지 않는다", () => {
 test("Google Play: 평점 범위(0~5)를 벗어나면 인정하지 않는다", () => {
   const html = '<script type="application/ld+json">{"aggregateRating":{"ratingValue":"47","ratingCount":"10"}}</script>';
   assert.equal(parseGooglePlay(html), null);
+});
+
+test("App Store: 평가 수가 양수인데 평균 평점이 없거나 숫자가 아니면 조회 실패로 본다", () => {
+  assert.deepEqual(appStoreOutcome({ results: [{ userRatingCount: 42 }] }), { ok: false });
+  assert.deepEqual(appStoreOutcome({ results: [{ averageUserRating: "x", userRatingCount: 42 }] }), { ok: false });
+});
+
+test("App Store: 평가 수가 정확히 0이면 정상 결과(평가 없음)", () => {
+  assert.deepEqual(appStoreOutcome({ results: [{ averageUserRating: 0, userRatingCount: 0 }] }), { ok: true, value: null });
+});
+
+test("App Store: 앱을 못 찾거나 평가 수가 비정상이면 조회 실패", () => {
+  assert.deepEqual(appStoreOutcome({ results: [] }), { ok: false });
+  assert.deepEqual(appStoreOutcome({ results: [{ averageUserRating: 4.5 }] }), { ok: false });
+  assert.deepEqual(appStoreOutcome({ results: [{ averageUserRating: 7, userRatingCount: 3 }] }), { ok: false });
+});
+
+test("App Store: 정상 평점은 새 값으로 교체된다", () => {
+  assert.deepEqual(appStoreOutcome({ results: [{ averageUserRating: 4.47619, userRatingCount: 42 }] }), { ok: true, value: { rating: 4.48, count: 42 } });
+});
+
+test("App Store 비정상 응답이면 직전 값이 유지된다 (pickStore 연계)", () => {
+  const prev = { rating: 4.5, count: 40 };
+  assert.deepEqual(pickStore(appStoreOutcome({ results: [{ userRatingCount: 42 }] }), prev), prev);
+  assert.equal(pickStore(appStoreOutcome({ results: [{ averageUserRating: 0, userRatingCount: 0 }] }), prev), null);
 });

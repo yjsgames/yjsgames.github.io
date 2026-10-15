@@ -43,7 +43,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/ratings.json
           git commit -m "chore: 스토어 평점 주간 갱신"
-          git push
+          # 실행 중 main 에 다른 커밋이 들어오면 push 가 거절되므로 한 번 rebase 후 재시도한다
+          git push || { git pull --rebase origin main && git push; }
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       # GITHUB_TOKEN 으로 한 push 는 다른 워크플로를 깨우지 않으므로 Pages 빌드를 직접 요청한다.
