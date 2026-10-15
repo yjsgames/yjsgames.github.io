@@ -34,7 +34,8 @@ NEW 표시가 필요한 요소에 출시일만 적는다. 30일(`NEW_DAYS`)이 �
 `.github/workflows/update-ratings.yml` 이 매주 월요일 09:00 KST 에 `tools/update-ratings.mjs` 를 실행한다.
 
 - App Store 는 iTunes Lookup API, Google Play 는 스토어 페이지에 들어 있는 평점 정보(JSON-LD)를 읽는다. Google Play 쪽은 공식 API 가 아니라서 페이지 구조가 바뀌면 그 주에는 조회에 실패한다.
-- 조회에 실패한 스토어는 직전 값을 유지한다.
+- 조회에 실패한 스토어는 직전 값을 유지한다. App Store 가 정상 응답으로 평가 0건을 주면 실패가 아니므로 그 스토어 값을 비운다. Google Play 는 평가 0건과 페이지 구조 변경을 구분할 수 없어, 평점을 못 읽으면 실패로 보고 직전 값을 지킨다.
+- Google Play 평점은 `application/ld+json` 안의 **같은 `aggregateRating` 객체**에서만 읽는다(0~5 범위, 평가 수 양의 정수).
 - 두 스토어 평점을 평가 수로 가중 평균해, `recommend.minRating`(4.0) 이상이고 평가 수가 `recommend.minCount`(20) 이상이면 `recommended: true` 가 된다. 평가 1건짜리 5점이 추천되는 것을 막기 위한 최소 건수다.
 - 값이 바뀐 주에만 `data/ratings.json` 을 커밋하고 Pages 를 다시 빌드한다. 홈페이지는 이 파일의 `recommended` 만 읽어 카드와 상세 창에 "추천 ★4.7" 배지를 붙인다.
 - 바로 갱신하려면 GitHub Actions 탭에서 **Update store ratings** 를 수동 실행한다.

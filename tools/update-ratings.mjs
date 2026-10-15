@@ -26,12 +26,40 @@ export function parseAppStore(json) {
   return { rating: round2(r.averageUserRating), count: r.userRatingCount };
 }
 
-/** Google Play 상세 페이지 HTML → {rating, count}. JSON-LD aggregateRating 을 읽는다. */
+/**
+ * Google Play 상세 페이지 HTML → {rating, count}.
+ * application/ld+json 블록을 JSON 으로 파싱해 **같은 aggregateRating 객체**의 두 값만 쓴다.
+ * 페이지 어딘가의 다른 ratingValue(리뷰 별점 등)를 섞어 읽지 않기 위해서다. 못 찾으면 null(=조회 실패).
+ */
 export function parseGooglePlay(html) {
-  const rating = Number(html.match(/"ratingValue"\s*:\s*"?([0-9.]+)/)?.[1]);
-  const count = Number(html.match(/"ratingCount"\s*:\s*"?([0-9]+)/)?.[1]);
-  if (!Number.isFinite(rating) || !(count > 0)) return null;
-  return { rating: round2(rating), count };
+  for (const [, body] of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    let data;
+    try {
+      data = JSON.parse(body);
+    } catch {
+      continue;
+    }
+    const found = findAggregateRating(data);
+    if (found) return found;
+  }
+  return null;
+}
+
+function findAggregateRating(node) {
+  if (!node || typeof node !== "object") return null;
+  const agg = node.aggregateRating;
+  if (agg && typeof agg === "object") {
+    const rating = Number(agg.ratingValue);
+    const count = Number(agg.ratingCount ?? agg.reviewCount);
+    if (Number.isFinite(rating) && rating >= 0 && rating <= 5 && Number.isInteger(count) && count > 0) {
+      return { rating: round2(rating), count };
+    }
+  }
+  for (const child of Object.values(node)) {
+    const found = findAggregateRating(child);
+    if (found) return found;
+  }
+  return null;
 }
 
 /** 스토어별 평점을 평가 수로 가중 평균한다. */
@@ -48,9 +76,13 @@ export function isRecommended(combined, { minRating, minCount }) {
   return combined.rating !== null && combined.rating >= minRating && combined.count >= minCount;
 }
 
-/** 새로 받은 값이 없으면(null) 직전 값을 유지한다. */
-export function keepPrevious(fresh, previous) {
-  return fresh ?? previous ?? null;
+/**
+ * 조회 결과({ok, value})로 스토어 값을 정한다.
+ * - 조회 실패(ok:false): 직전 값 유지 — 일시 장애로 배지가 깜빡이지 않게.
+ * - 정상 조회(ok:true): 그 값으로 교체. 평가 0건(value:null)이면 직전 값도 지운다.
+ */
+export function pickStore(outcome, previous) {
+  return outcome.ok ? outcome.value : previous ?? null;
 }
 
 function round2(n) {
@@ -68,20 +100,27 @@ async function fetchText(url) {
 
 async function fetchAppStore(id, country) {
   const text = await fetchText(`https://itunes.apple.com/lookup?id=${id}&country=${country}`);
-  return parseAppStore(JSON.parse(text));
+  const json = JSON.parse(text);
+  // 앱 자체를 못 찾은 응답은 조회 실패로 본다. 앱은 찾았는데 평가가 0건이면 정상 결과(null)다.
+  if (!json?.results?.length) throw new Error("App Store 앱을 찾지 못함");
+  return parseAppStore(json);
 }
 
 async function fetchGooglePlay(id, country) {
   const html = await fetchText(`https://play.google.com/store/apps/details?id=${id}&hl=ko&gl=${country.toUpperCase()}`);
-  return parseGooglePlay(html);
+  const parsed = parseGooglePlay(html);
+  // Play 페이지는 평가 0건과 구조 변경을 구분할 수 없어, 평점을 못 읽으면 실패로 보고 직전 값을 지킨다.
+  if (!parsed) throw new Error("JSON-LD aggregateRating 없음");
+  return parsed;
 }
 
+/** 조회를 {ok, value} 로 감싼다. 예외는 실패(ok:false) — pickStore 가 직전 값을 유지한다. */
 async function tryFetch(label, fn) {
   try {
-    return await fn();
+    return { ok: true, value: await fn() };
   } catch (err) {
     console.warn(`[update-ratings] ${label} 조회 실패 — 직전 값 유지: ${err.message}`);
-    return null;
+    return { ok: false };
   }
 }
 
@@ -94,10 +133,10 @@ async function main() {
     const prev = previous.games?.[key]?.stores ?? {};
     const stores = {
       appStore: ids.appStoreId
-        ? keepPrevious(await tryFetch(`${key} App Store`, () => fetchAppStore(ids.appStoreId, config.country)), prev.appStore)
+        ? pickStore(await tryFetch(`${key} App Store`, () => fetchAppStore(ids.appStoreId, config.country)), prev.appStore)
         : null,
       googlePlay: ids.googlePlayId
-        ? keepPrevious(await tryFetch(`${key} Google Play`, () => fetchGooglePlay(ids.googlePlayId, config.country)), prev.googlePlay)
+        ? pickStore(await tryFetch(`${key} Google Play`, () => fetchGooglePlay(ids.googlePlayId, config.country)), prev.googlePlay)
         : null,
     };
     const combined = combine(stores);
