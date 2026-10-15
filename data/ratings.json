@@ -1,0 +1,63 @@
+{
+  "updatedAt": "2026-10-15",
+  "recommend": {
+    "minRating": 4,
+    "minCount": 20
+  },
+  "games": {
+    "hero": {
+      "rating": 4.71,
+      "count": 420,
+      "recommended": true,
+      "stores": {
+        "appStore": {
+          "rating": 4.48,
+          "count": 42
+        },
+        "googlePlay": {
+          "rating": 4.73,
+          "count": 378
+        }
+      }
+    },
+    "forge": {
+      "rating": 3.59,
+      "count": 32,
+      "recommended": false,
+      "stores": {
+        "appStore": {
+          "rating": 3,
+          "count": 2
+        },
+        "googlePlay": {
+          "rating": 3.63,
+          "count": 30
+        }
+      }
+    },
+    "starship": {
+      "rating": 3.87,
+      "count": 17,
+      "recommended": false,
+      "stores": {
+        "appStore": {
+          "rating": 5,
+          "count": 1
+        },
+        "googlePlay": {
+          "rating": 3.8,
+          "count": 16
+        }
+      }
+    },
+    "claw": {
+      "rating": null,
+      "count": 0,
+      "recommended": false,
+      "stores": {
+        "appStore": null,
+        "googlePlay": null
+      }
+    }
+  }
+}

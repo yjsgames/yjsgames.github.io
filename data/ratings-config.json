@@ -1,0 +1,14 @@
+{
+  "_comment": "스토어 평점 자동 수집 설정. tools/update-ratings.mjs 가 매주 읽어 data/ratings.json 을 갱신한다. 게임을 추가하려면 games 에 한 줄 추가.",
+  "recommend": {
+    "minRating": 4.0,
+    "minCount": 20
+  },
+  "country": "kr",
+  "games": {
+    "hero": { "appStoreId": "6757685476", "googlePlayId": "com.yjsgames.dotknight" },
+    "forge": { "appStoreId": "6760809332", "googlePlayId": "com.yjsgames.idleblade" },
+    "starship": { "appStoreId": "6780450541", "googlePlayId": "com.yjsgames.idlebrick" },
+    "claw": { "appStoreId": "6810273077" }
+  }
+}
