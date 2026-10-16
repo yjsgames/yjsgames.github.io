@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>슬라임 키우기</title>
+    <!-- 슬라임 키우기 세로형 웹 템플릿 (Unity 6.6 Base/Default 기반).
+         - 캔버스를 화면 높이(좁은 화면이면 폭)에 맞춰 9:16 유지, 가운데 정렬. 모바일은 전체 화면.
+         - autoSyncPersistentDataPath = true: Application.persistentDataPath 세이브가 IndexedDB에 자동 저장돼 새로고침해도 유지된다. -->
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #1d2a38; touch-action: none; }
+      #kiwogi-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+      #unity-canvas { display: block; height: 100%; aspect-ratio: 9 / 16; max-width: 100%; background: #dff6ff; outline: none; }
+      @media (max-aspect-ratio: 9/16) { #unity-canvas { width: 100%; height: auto; } }
+      #kiwogi-loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 220px; text-align: center;
+                        color: #e8f4ff; font: 15px/1.4 sans-serif; }
+      #kiwogi-bar { margin-top: 10px; height: 10px; border-radius: 5px; background: rgba(255,255,255,0.25); overflow: hidden; }
+      #kiwogi-bar-fill { height: 100%; width: 0%; background: #8ee3b2; }
+      #kiwogi-error { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px; border-radius: 8px;
+                      background: #c0392b; color: #fff; font: 14px sans-serif; display: none; }
+    </style>
+  </head>
+  <body>
+    <div id="kiwogi-stage">
+      <canvas id="unity-canvas" tabindex="-1"></canvas>
+      <div id="kiwogi-loading">슬라임 깨우는 중…<div id="kiwogi-bar"><div id="kiwogi-bar-fill"></div></div></div>
+    </div>
+    <div id="kiwogi-error"></div>
+    <script>
+      const canvas = document.querySelector("#unity-canvas");
+      const loading = document.querySelector("#kiwogi-loading");
+      const barFill = document.querySelector("#kiwogi-bar-fill");
+      const errorBox = document.querySelector("#kiwogi-error");
+
+      function unityShowBanner(msg, type) {
+        if (type !== "error") { console.warn(msg); return; }
+        errorBox.textContent = msg;
+        errorBox.style.display = "block";
+      }
+
+      const buildUrl = "Build";
+      const config = {
+        arguments: [],
+        dataUrl: buildUrl + "/WebGL-Hosting.data.unityweb",
+        frameworkUrl: buildUrl + "/WebGL-Hosting.framework.js.unityweb",
+        codeUrl: buildUrl + "/WebGL-Hosting.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "YJSGames",
+        productName: "슬라임 키우기",
+        productVersion: "1.0",
+        showBanner: unityShowBanner,
+        // 세이브(persistentDataPath) 자동 영속화 — 끄면 새로고침 시 진행이 사라진다
+        autoSyncPersistentDataPath: true,
+      };
+
+      const script = document.createElement("script");
+      script.src = buildUrl + "/WebGL-Hosting.loader.js";
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          barFill.style.width = Math.round(progress * 100) + "%";
+        }).then((unityInstance) => {
+          loading.remove();
+        }).catch((message) => {
+          unityShowBanner(String(message), "error");
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>
