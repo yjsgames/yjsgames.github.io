@@ -46,3 +46,5 @@ NEW 표시가 필요한 요소에 출시일만 적는다. 30일(`NEW_DAYS`)이 �
 node --test tools/update-ratings.test.mjs
 node tools/update-ratings.mjs
 ```
+
+광부 키우기: [개인정보처리방침](gwangbu/privacy/) · [이용약관](gwangbu/terms/)
