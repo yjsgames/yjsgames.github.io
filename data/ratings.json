@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-15",
+  "updatedAt": "2026-10-19",
   "recommend": {
     "minRating": 4,
     "minCount": 20
@@ -23,8 +23,8 @@
       }
     },
     "forge": {
-      "rating": 3.59,
-      "count": 32,
+      "rating": 3.5,
+      "count": 31,
       "recommended": false,
       "stores": {
         "appStore": {
@@ -34,8 +34,8 @@
         },
         "googlePlay": {
           "id": "com.yjsgames.idleblade",
-          "rating": 3.63,
-          "count": 30
+          "rating": 3.53,
+          "count": 29
         }
       }
     },
