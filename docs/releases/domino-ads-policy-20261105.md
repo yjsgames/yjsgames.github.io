@@ -7,7 +7,9 @@
 - 기존 Firebase 계정·클라우드 저장·삭제 안내를 보존한다.
 - 한·영 정책에 LevelPlay/ironSource Ads, Unity Ads, Google AdMob, 광고 식별자·상호작용·진단, ATT/UMP 선택, 광고 제거 구매와 구매 검증 처리를 추가한다.
 - 실제 통합 소스 `domino-no-ads`에는 Firebase Analytics/Crashlytics가 없다는 개발 담당자 확인을 반영한다. 별도 `domino-production-ads` WIP의 분석 코드를 이번 정책 근거로 승계하지 않는다.
-- 구매 검증은 Firebase UID·스토어·상품·거래 ID와 Google token/Apple signed transaction을 서울 함수에 TLS 전송한다는 구현 담당자 확인을 반영한다. 영수증 본문 비로그·별도 서버 권한 원장 없음, 기기/클라우드 소유권·처리 중 거래 저장도 최종 코드로 대조한다.
+- 구매 검증은 Firebase UID·스토어·상품·거래 ID와 Google token/Apple signed transaction을 서울 함수에 TLS 전송한다는 구현 담당자 확인을 반영한다. 영수증 본문 비로그·별도 서버 권한 원장 없음도 최종 바이너리로 대조한다.
+- source `a6894eb2c9dc7f51d13ddaf5ff7da2f54afe1c6e`의 구현 담당자 확인: 게임의 로컬 PlayerPrefs pending journal에는 원 UID/TID만 저장하며, Google 영수증 원문/Apple JWS는 게임 진행 세이브에 넣지 않는다. cloud `progress.shop`은 보유 SKU·광고 제거 출처·지급 TID·확정 TID(최근64개)를 저장한다. native acknowledgement 뒤 제거하는 것은 로컬 pending UID/TID journal이며 클라우드 확정 거래 이력 전체가 아니다.
+- 같은 source의 `opening.shopAfter=3`에 따라 상점은 세 번째 판 이후 해금된다. 실제 새 빌드에서 심사 접근 경로를 확인한 뒤 심사 메모에 반영한다.
 - app-ads.txt에는 Unity 조직의 현재 전체 목록과 공개 파일을 비교해 누락된 `monetrix.ai, 10761, RESELLER` 한 행만 추가한다. 기존 OWNERDOMAIN·Google DIRECT·Unity DIRECT와 다른 판매자를 모두 보존한다.
 
 ## 콘솔 근거
