@@ -9,10 +9,10 @@
 <p>This policy explains data processing for the native mobile version of Domino Chain Tycoon, operated by YJS Games, including the Pocket Tycoon Games developer profile. The release baseline described here is version 1.0.0 with Firebase account and cloud-save features.</p>
 <h2>Account and game-save data</h2>
 <ul>
-<li><strong>Authentication:</strong> Firebase processes a game user ID, login provider and authentication/session credentials to create, restore and protect your game account. Guest sign-in does not ask you to enter a name or email address. If you choose Google or Apple linking, the provider's sign-in token and account identifier are processed by Firebase; provider profile claims may also be processed according to that provider's authorization and privacy settings. The game does not request an additional Apple email/name scope or a Google email permission.</li>
+<li><strong>Authentication:</strong> Firebase processes a game user ID, login provider and authentication/session credentials to create, restore and protect your game account. Guest sign-in does not ask you to enter a name or email address. If you choose Google or Apple linking, the provider's sign-in token and account identifier are processed by Firebase. Basic profile claims such as a name, email address or profile-image URL may also be processed according to the provider's sign-in scopes and privacy settings. The game does not request additional Google scopes beyond basic sign-in or an Apple email/name scope.</li>
 <li><strong>Cloud saves:</strong> Game progress is stored under your Firebase user ID. Saves include currency, upgrades, prestige, board/star records, locations, tutorial progress, rewards and save timestamps. Names, email addresses, telephone numbers and dates of birth are not fields in the game-progress save.</li>
 <li><strong>Local storage:</strong> Your device also stores settings, cached saves and login-session information. Removing the app or its local data does not by itself request deletion of the server account. Losing an unlinked guest session may prevent recovery of that guest account.</li>
-<li><strong>Security and support:</strong> Service providers may process IP addresses, connection records and app/device information needed to operate and protect their services. If you email support, we receive your email address and the information you choose to send. Do not send passwords, authentication tokens or payment-card numbers.</li>
+<li><strong>Security and support:</strong> Service providers may process IP addresses, connection records and app/device information needed to operate and protect their services. Google Sign-In may estimate a device's general location from its IP address for fraud prevention. If you email support, we receive your email address and the information you choose to send. Do not send passwords, authentication tokens or payment-card numbers.</li>
 </ul>
 <h2>Purposes and service providers</h2>
 <p>Account and save data are used to provide sign-in, account linking, progress synchronization/restoration, deletion and abuse prevention. We use Google Firebase Authentication, Cloud Firestore and Cloud Functions for these features. The current game-save database is in Seoul, South Korea. This does not mean every authentication or service-security record is processed only in Seoul; service providers may process data in other countries.</p>
@@ -32,10 +32,10 @@
 <p>이 방침은 YJS Games가 운영하는 Domino Chain Tycoon 네이티브 모바일 앱에 적용되며, Pocket Tycoon Games 개발자 프로필을 포함합니다. 이 문서의 기준 배포판은 Firebase 계정과 클라우드 저장 기능을 사용하는 1.0.0입니다.</p>
 <h2>계정과 게임 저장 정보</h2>
 <ul>
-<li><strong>인증:</strong> Firebase 사용자 ID, 로그인 제공자, 인증·세션 정보를 계정 생성·복원·보호에 사용합니다. 게스트 로그인은 이름이나 이메일 입력을 요구하지 않습니다. Google 또는 Apple 연결을 선택하면 로그인 토큰과 제공자 계정 식별자가 Firebase에서 처리되며, 제공자의 승인 범위와 개인정보 설정에 따라 프로필 정보가 처리될 수 있습니다. 게임은 별도의 Apple 이메일·이름 범위나 Google 이메일 권한을 요청하지 않습니다.</li>
+<li><strong>인증:</strong> Firebase 사용자 ID, 로그인 제공자, 인증·세션 정보를 계정 생성·복원·보호에 사용합니다. 게스트 로그인은 이름이나 이메일 입력을 요구하지 않습니다. Google 또는 Apple 연결을 선택하면 로그인 토큰과 제공자 계정 식별자가 Firebase에서 처리됩니다. 제공자의 로그인 범위와 개인정보 설정에 따라 이름, 이메일, 프로필 이미지 URL 같은 기본 프로필 정보도 처리될 수 있습니다. 게임은 기본 로그인 외의 Google 추가 범위나 Apple 이메일·이름 범위를 요청하지 않습니다.</li>
 <li><strong>클라우드 저장:</strong> Firebase 사용자 ID 아래에 재화, 강화, 환생, 판·별 기록, 장소, 튜토리얼 진행, 보상, 저장 시각을 저장합니다. 게임 진행 저장 형식에는 이름, 이메일, 전화번호, 생년월일 항목이 없습니다.</li>
 <li><strong>기기 저장:</strong> 기기에는 설정, 저장 캐시와 로그인 세션 정보도 남습니다. 앱이나 기기 데이터를 지우는 것만으로 서버 계정 삭제가 요청되지는 않습니다. 연결하지 않은 게스트 세션을 잃으면 같은 계정을 복구하지 못할 수 있습니다.</li>
-<li><strong>보안과 문의:</strong> 제공업체는 서비스 운영과 보호에 필요한 IP 주소, 접속 기록, 앱·기기 정보를 처리할 수 있습니다. 지원 이메일을 보내면 이메일 주소와 직접 작성한 내용을 받습니다. 비밀번호, 인증 토큰, 결제 수단 번호는 보내지 마세요.</li>
+<li><strong>보안과 문의:</strong> 제공업체는 서비스 운영과 보호에 필요한 IP 주소, 접속 기록, 앱·기기 정보를 처리할 수 있습니다. Google 로그인은 부정 이용 방지를 위해 IP 주소로 기기의 대략적인 위치를 추정할 수 있습니다. 지원 이메일을 보내면 이메일 주소와 직접 작성한 내용을 받습니다. 비밀번호, 인증 토큰, 결제 수단 번호는 보내지 마세요.</li>
 </ul>
 <h2>이용 목적과 제공업체</h2>
 <p>계정·저장 정보는 로그인, 계정 연결, 진행 동기화·복원, 삭제와 부정 이용 방지에 사용합니다. Google Firebase Authentication, Cloud Firestore, Cloud Functions를 사용하며 현재 게임 저장 데이터베이스는 대한민국 서울에 있습니다. 인증·서비스 보안 정보까지 모두 서울에서만 처리된다는 뜻은 아니며, 제공업체의 운영에 따라 국외에서 처리될 수 있습니다.</p>
