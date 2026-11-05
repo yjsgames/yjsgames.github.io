@@ -49,4 +49,4 @@ node tools/update-ratings.mjs
 
 광부 키우기: [개인정보처리방침](gwangbu/privacy/) · [이용약관](gwangbu/terms/)
 
-Domino Chain Tycoon: [개인정보처리방침·계정 삭제 안내](domino/privacy/). iOS 1.0.0(1)의 Firebase 계정·클라우드 저장을 기준으로 하며, 광고·결제 기능을 추가한 후속 배포판에서는 고지 갱신이 필요하다.
+Domino Chain Tycoon: [개인정보처리방침·계정 삭제 안내](domino/privacy/). Firebase 계정·클라우드 저장, LevelPlay 중재 광고와 광고 제거 구매를 설명한다. 이번 변경의 네이티브 바이너리 대조·게시 조건은 [배포 검토 기록](docs/releases/domino-ads-policy-20261105.md)을 따른다.
