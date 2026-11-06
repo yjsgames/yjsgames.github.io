@@ -1,17 +1,27 @@
 # Domino 광고·구매 정책 변경 검토
 
-상태(2026-11-06): Draft PR. 최신 정적 산출물 대조는 아래와 같이 완료했으며, **서명된 iOS 빌드·남은 실제 동작 검증과 정식 리뷰 전에는 main에 머지하거나 게시하지 않는다.** GitHub Pages는 main을 배포하므로 이 브랜치를 배포 대상으로 바꾸지 않는다.
+상태(2026-11-06): Draft PR. 사용자 요청에 따라 만 13세 미만을 포함하고 전체이용가에 맞추는 새 보호 모드를 대조 중이다. **새 모드의 최종 바이너리·서명된 iOS 빌드·실제 동작 검증과 정식 리뷰 전에는 main에 머지하거나 게시하지 않는다.** GitHub Pages는 main을 배포하므로 이 브랜치를 배포 대상으로 바꾸지 않는다.
 
-## 현재 기준 산출물
+## 새 보호 모드의 대조 기준
 
-- 최종 게임 병합 소스는 `38e9d75c183320239e3851a1935b0aec65962e8b`이며 PR48 후보 `8966710eb7e77ac060b5b20f41424643e3302d30`와 `Assets/Packages/server` 트리 차이는 0이다. 아래 a6894·92ca488·833 근거는 변경 이력이며 최신 후보를 뜻하지 않는다.
+- 정책 초안의 코드 대조 후보는 PR58 `42e6e38a0f5977b64a8b88227433758c27b97d01`이다. 최종 소스나 새 native PASS로 확정한 값이 아니다. 이후 iOS 측정 지연 설정 등 변경이 생기면 다시 대조한다.
+- `DominoAudiencePolicy`와 `DominoGame.Family/Startup`에서 만 18세 미만·미선택을 보호 모드로 처리하고, 성인 선택만 온라인 기능으로 진입하는 경로를 읽었다. 시작 시 연령 구간만 로컬 저장하며, 생년월일·정확한 나이를 입력받지 않는다. 차가운 시작에서는 다시 묻고 같은 프로세스의 선택은 유지한다.
+- 보호 진행은 별도 로컬 슬롯을 사용한다. 기존 온라인 계정·클라우드 진행·구매 기록을 복제하거나 삭제하지 않는다. 계정/Firebase·소셜 로그인·광고·ATT/UMP·IAP 초기화 차단은 코드 대조이며 최종 바이너리/provider/실제 네트워크 검증이 남았다.
+- 보호자 확인은 정책 웹사이트 이동의 일회성 확인이다. 법정대리인 신원 검증·법적 보호자 동의·온라인 SDK 허용으로 사용하지 않는다.
+- 성인 설정의 광고 신고는 앱 버전과 빈 신고 항목을 넣은 메일 초안을 열며 자동 전송·플레이어 ID·첨부 추가가 없다. 실제 기기의 메일 앱 진입·취소는 미검증이다.
+- 이전 65685a0 Android 실행의 CS0234 실패는 보존했다. 해당 컴파일 문제와 리뷰 P2(저장 실패 후 취소한 재시도)는 새 후보에서 수정했으며, 수정 후 일부 검사 통과를 최종 native PASS로 합산하지 않는다.
+
+## 어린이 포함 요청 이전의 보존 산출물
+
+- 어린이 포함 요청 이전 게임 병합 소스는 `38e9d75c183320239e3851a1935b0aec65962e8b`이며 PR48 후보 `8966710eb7e77ac060b5b20f41424643e3302d30`와 `Assets/Packages/server` 트리 차이는 0이다. 아래 보존 산출물과 a6894·92ca488·833 근거는 새 보호 모드의 최종 검증이 아니다.
 - Jenkins `Domino-AOS-AAB #10`은 1.0.0(5), development=false, appBundle=true로 성공했다. 50,006,990바이트 AAB의 원본·회수·Aside 업로드 준비본 SHA256은 `034affe9eac940b1bd9b3396c23490ce1ce363621ec5fceedcc908f2ee357a85`로 같고, 추출 manifest에서 package `com.yjsgames.domino`, 결제 권한, targetSDK36을 확인했다. Google Play에서도 업로드된 App Bundle 5(1.0.0)를 확인했으며 심사·테스트 시작은 하지 않았다.
 - iOS는 896 소스의 1.0.0(3) unsigned archive다. 전체 원문 근거 JSON SHA256 `f37c8c53dcba99e87e7b32454f5f66a843e0ec243382f6fcec06a55d5976c7e7`를 부모가 확인했다. PrivacyInfo 13개의 hash는 이전 c39와 모두 같고, SKAdNetwork93개에 공식 참조76개 누락0·추가17을 직접 재계산했다. 서명 IPA·실제 iPhone 동작을 증명하지는 않는다.
 - Android 기본 native UI·Back 회귀 통과는 기기 담당자의 896 검증이며, 실제 결제·복원·계정 삭제·보상형 광고와 iPhone ATT/UMP는 별도 미완료 항목이다. 이전 Back P2는 c523에서 두 번 동일PID 복귀로 해결됐고 열린 결함으로 승계하지 않는다.
-- 사용자 최신 범위는 Apple·Play 및 IAP 한국만이다. Play Alpha 대한민국1개국 저장 화면을 확인했으며 Apple·IAP 국가 저장은 아직 별도 작업이다. 테스트 참가자는 모집 전이다.
+- 사용자 최신 범위는 Apple·Play 및 IAP 한국만이다. Apple 앱·IAP 모두 대한민국 1개/미래 국가 자동 추가 꺼짐을 저장·재조회했다. Play Alpha 대한민국 1개국 저장 화면도 확인했다. Play IAP는 대한민국 사용 가능/KRW10,000과 관측한 타국 사용 불가를 확인했고 전 국가 최종 감사는 남았다. 테스트 참가자는 모집 전이다.
 
 ## 변경
 
+- 한·영 정책에 보호 모드와 성인 온라인 모드의 처리 범위, 별도 로컬 진행·기존 온라인 기록 보존, 보호자 확인의 한계, 성인의 광고 신고 메일 초안을 반영한다. 이 문안은 새 후보용 Draft이며 과거 AAB5/ASC build2에 붙여 제출하지 않는다.
 - 기존 Firebase 계정·클라우드 저장·삭제 안내를 보존한다.
 - 한·영 정책에 LevelPlay/ironSource Ads, Unity Ads, Google AdMob, 광고 식별자·상호작용·진단, ATT/UMP 선택, 광고 제거 구매와 구매 검증 처리를 추가한다.
 - 실제 통합 소스 `domino-no-ads`에는 Firebase Analytics/Crashlytics가 없다는 개발 담당자 확인을 반영한다. 별도 `domino-production-ads` WIP의 분석 코드를 이번 정책 근거로 승계하지 않는다.
@@ -33,8 +43,11 @@ Domino Android/iOS의 기존 AdMob 앱과 파트너 입찰 단위를 재사용�
 
 ## 머지·게시 게이트
 
-- [x] 최종 게임 source와 Android AAB 버전·CI·회수 hash 대조.
-- [x] 최신 iOS unsigned archive의 PrivacyInfo13개·SKAD93개 정적 대조.
+- [ ] 새 보호 모드 최종 게임 source와 Android AAB 버전·CI·회수 hash 대조. 과거 AAB5 대조 완료는 위 보존 이력으로만 유지.
+- [ ] 새 보호 모드 iOS 산출물의 PrivacyInfo·SKAD·시작 전 측정 지연 정적 대조. 과거 896 unsigned 대조 완료와 구분.
+- [ ] 보호 세션 cold-start에서 provider/광고·계정·IAP 비초기화 및 실제 네트워크·로컬 저장 재진입 확인.
+- [ ] 중립 연령 선택·보호자 확인의 취소/백그라운드·외부 웹 이동을 한국어 실기 화면으로 확인.
+- [ ] AdMob G/LevelPlay 메타데이터와 각 광고 네트워크 콘솔 필터·부적절 광고 신고 실제 동작 대조.
 - [ ] 최종 iOS 서명 IPA와 해당 바이너리의 기기 검증.
 - [ ] 실제 Podfile.lock, Android 의존성, 임베디드 SDK·PrivacyInfo.xcprivacy와 정책 데이터 유형 대조.
 - [ ] ATT 허용/거부, UMP 선택·필요 시 옵션 재열기, 선택 후 광고 요청 재평가의 기기 증거.
@@ -54,5 +67,8 @@ Domino Android/iOS의 기존 AdMob 앱과 파트너 입찰 단위를 재사용�
 - [Firebase Apple 데이터 고지](https://firebase.google.com/docs/ios/app-store-data-collection)
 - [Unity IAP 5.4+ 개인정보 개요](https://docs.unity.com/en-us/iap/privacy-and-consent/overview)
 - [Google 로그인 iOS 데이터 고지](https://developers.google.com/identity/sign-in/ios/app-privacy)
+- [Google Families 정책](https://support.google.com/googleplay/android-developer/answer/9893335?hl=en)
+- [Apple 심사 가이드라인](https://developer.apple.com/app-store/review/guidelines/)
+- [LevelPlay AdMob 광고 콘텐츠 등급 전달](https://docs.unity.com/en-us/grow/levelplay/sdk/unity/networks/guides/google-admob)
 
-조회일 2026-11-05. 공식 문서의 SDK 기준 버전과 실제 바이너리 버전을 구분하며, SDK 문서의 합집합만으로 지역별 실제 동작이나 앱 전체 고지의 정확성을 확정하지 않는다.
+조회일 2026-11-05~06. 공식 문서의 SDK 기준 버전과 실제 바이너리 버전을 구분하며, SDK 문서의 합집합만으로 지역별 실제 동작이나 앱 전체 고지의 정확성을 확정하지 않는다. 전체이용가 목표, Play 대상 연령·콘텐츠 등급, Apple 연령 등급·Kids Category는 별도 항목이며 임의로 같은 것으로 신고하지 않는다.
