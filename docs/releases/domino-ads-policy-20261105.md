@@ -2,7 +2,19 @@
 
 상태(2026-11-06): Draft PR. 사용자 요청에 따라 만 13세 미만을 포함하고 전체이용가에 맞추는 새 보호 모드를 대조 중이다. **새 모드의 최종 바이너리·서명된 iOS 빌드·실제 동작 검증과 정식 리뷰 전에는 main에 머지하거나 게시하지 않는다.** GitHub Pages는 main을 배포하므로 이 브랜치를 배포 대상으로 바꾸지 않는다.
 
-## 새 보호 모드의 대조 기준
+## 최신 대조와 일반 계정 경로
+
+- 보호 모드는 PR58 병합 소스 `8a8c74314c6c4e41a31f20361fa62d940c726d42`로 갱신됐다. Jenkins Android AAB #11/code8의 성공·서명·SHA256 일치와 Play Alpha 초안 저장을 확인했다. 이는 새 일반 계정 경로의 최종 제출 바이너리가 아니다. 실제 테스트 시작·검토 전송은 하지 않았다.
+- iOS source7430/build6 unsigned archive의 PrivacyInfo13개는 이전4ded/build5와 경로별 해시가 같았다. 서명·업로드·실기 검증을 뜻하지 않는다. 사용자가 Mac 인증을 나중에 진행하기로 해 서명 단계는 보류 중이다.
+- 일반 계정 경로의 대조 소스는 게임 PR59 `716e59a8ce8f44c0293b75a348e4df7f048f4f06`과 `docs/store/reviewer-access.md`다. 성인의 선택형 기존 이메일 계정 불러오기, 기존 UID·진행 보존과 서버 관리 계정 혜택을 한영 정책에 추가했다. 후속 전경 복귀 갱신 수정과 최종 소스는 개발 담당자 검증 뒤 다시 확인한다.
+- 이메일·암호는 Firebase Authentication의 signInWithPassword HTTPS 요청에 사용한다. 게임 설정·진행 저장·앱 로그에 두지 않으며 비밀번호 입력란을 제출·취소·Back·백그라운드·화면 폐기 때 비운다. 기존 인증 파일의 갱신 토큰 보관은 별개다. 계정 불러오기는 가입·게스트 자동 연결·진행 합치기가 아니다.
+- 제공 광고 제거 혜택은 관리자만 기록하는 계정 하위 문서다. 인증된 현재 UID로 조회하고 응답은 최대300초 메모리에서만 유지한다. 실제 스토어 구매 영수증·구매 권한·거래 기록을 합성하거나 변경하지 않는다. 기존 재귀 계정 삭제 범위에 이 문서가 포함된다.
+- 개발 담당자가 서버121/121, 권한 하위 문서 삭제·다른 UID 보존5/5, C#/UI·보호·계정 보존74/74 통과를 보고했다. 이는 부모의 운영 계정 삭제·실제 스토어 구매·복원·최종 바이너리 네트워크 전송 검증이 아니다. 처음 중단되거나 실패한 검사 기록은 별도로 보존한다.
+- 이메일 제공자 활성화, 검수 계정·혜택 생성과 새 함수 배포는 사용자 최종 확인 전 미실행이다. 정책을 먼저 공개하거나 콘솔에 모든 유료 기능 접근이 완료됐다고 선언하지 않는다.
+- Firebase 공식 서비스 개인정보 안내에서 인증 IP 로그 수 주와 계정 삭제 요청 뒤 다른 인증 정보의 운영·백업 삭제 최대180일을 확인해 한영 정책에 추가했다. Android SDK 자동 수집 목록을 REST 구현의 실제 전송 목록으로 복사하지 않는다.
+- 한국 IARC/GRAC 전체이용가와 Play 판매자 상태 저장을 직접 확인했다. 전체이용가 등급은 최종 스토어 심사 완료나 개인정보·Families 검증 완료가 아니다. Play 대상 연령은 사용자 요청대로 만5세 이하도 포함하지만 로그인 세부정보 선행 게이트 때문에 아직 콘솔에 저장하지 않았다.
+
+## 초기 보호 모드의 대조 기록
 
 - 정책 초안의 코드 대조 후보는 PR58 `42e6e38a0f5977b64a8b88227433758c27b97d01`이다. 최종 소스나 새 native PASS로 확정한 값이 아니다. 이후 iOS 측정 지연 설정 등 변경이 생기면 다시 대조한다.
 - `DominoAudiencePolicy`와 `DominoGame.Family/Startup`에서 만 18세 미만·미선택을 보호 모드로 처리하고, 성인 선택만 온라인 기능으로 진입하는 경로를 읽었다. 시작 시 연령 구간만 로컬 저장하며, 생년월일·정확한 나이를 입력받지 않는다. 차가운 시작에서는 다시 묻고 같은 프로세스의 선택은 유지한다.
@@ -52,6 +64,7 @@ Domino Android/iOS의 기존 AdMob 앱과 파트너 입찰 단위를 재사용�
 - [ ] 실제 Podfile.lock, Android 의존성, 임베디드 SDK·PrivacyInfo.xcprivacy와 정책 데이터 유형 대조.
 - [ ] ATT 허용/거부, UMP 선택·필요 시 옵션 재열기, 선택 후 광고 요청 재평가의 기기 증거.
 - [ ] 구매·취소·복원·pending 정리·서버 검증·계정 클라우드 저장 동작과 정책 대조.
+- [ ] 일반 이메일 계정 불러오기·취소·UID별 진행 보존·무상 혜택 만료와 전경 복귀·계정 삭제를 최종 소스와 실제 기기로 대조. 외부 제공자·계정·혜택·새 함수는 별도 최종 확인 후에만 설정한다.
 - [x] 현재 한·영 HTML의 모바일 렌더·링크·계정 삭제 앵커 검증(HTML 변경 시 다시 검증).
 - [ ] 정식 PR 리뷰와 현재 HEAD 검증.
 - [ ] 정책 게시 후 공개 HTTP200·한영 내용·app-ads 합집합·Unity 인증 재조회.
@@ -65,6 +78,9 @@ Domino Android/iOS의 기존 AdMob 앱과 파트너 입찰 단위를 재사용�
 - [LevelPlay Apple 개인정보 설문](https://docs.unity.com/en-us/grow/levelplay/platform/legal-resources/apple-privacy-questionnaire)
 - [Unity Ads iOS 개인정보 설문](https://docs.unity.com/en-us/ads-ios/4.21.0/privacy/developer-consent/disclosures/apple-privacy-survey)
 - [Firebase Apple 데이터 고지](https://firebase.google.com/docs/ios/app-store-data-collection)
+- [Firebase 서비스 개인정보와 보관 기간](https://firebase.google.com/support/privacy/)
+- [Firebase 이메일·비밀번호 REST 인증](https://firebase.google.com/docs/reference/rest/auth#section-sign-in-email-password)
+- [Firebase Android 데이터 고지](https://firebase.google.com/docs/android/play-data-disclosure)
 - [Unity IAP 5.4+ 개인정보 개요](https://docs.unity.com/en-us/iap/privacy-and-consent/overview)
 - [Google 로그인 iOS 데이터 고지](https://developers.google.com/identity/sign-in/ios/app-privacy)
 - [Google Families 정책](https://support.google.com/googleplay/android-developer/answer/9893335?hl=en)
