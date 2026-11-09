@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-02",
+  "updatedAt": "2026-11-09",
   "recommend": {
     "minRating": 4,
     "minCount": 20
@@ -7,7 +7,7 @@
   "games": {
     "hero": {
       "rating": 4.71,
-      "count": 428,
+      "count": 429,
       "recommended": true,
       "stores": {
         "appStore": {
@@ -18,7 +18,7 @@
         "googlePlay": {
           "id": "com.yjsgames.dotknight",
           "rating": 4.73,
-          "count": 386
+          "count": 387
         }
       }
     },
