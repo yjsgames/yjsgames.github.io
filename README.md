@@ -49,4 +49,6 @@ node tools/update-ratings.mjs
 
 광부 키우기: [개인정보처리방침](gwangbu/privacy/) · [이용약관](gwangbu/terms/)
 
+환생 우주선 방치하기: [개인정보처리방침](reborn-starship-idle/privacy/). Google 로그인, 계정·저장, 분석·광고·구매와 삭제 요청을 안내한다. 앱인토스 전용 방침과 구분하며 홈페이지와 지원 페이지에서 연결한다.
+
 Domino Chain Tycoon: [개인정보처리방침·계정 삭제 안내](domino/privacy/). 보호 모드, Firebase 계정·선택형 이메일 로그인·클라우드 저장, 계정 제공 혜택, LevelPlay 중재 광고와 광고 제거 구매를 설명한다. 이번 변경의 네이티브 바이너리 대조·게시 조건은 [배포 검토 기록](docs/releases/domino-ads-policy-20261105.md)을 따른다.
