@@ -6,7 +6,7 @@
 
 ## 문안의 원본
 
-- 게임: [Rubble PR #9](https://github.com/YJS-Games/rubble/pull/9), [광고 PR #11](https://github.com/YJS-Games/rubble/pull/11). 현재 광고 후보 소스 `c37b49be6d281c7e80fa013d908706dd05f26d00`.
+- 게임: [Rubble PR #9](https://github.com/YJS-Games/rubble/pull/9), [광고 PR #11](https://github.com/YJS-Games/rubble/pull/11). 현재 광고 후보 소스 `a1d5cb28cb358ca517b6b08e9a503e8afee19bfa`.
 - `RubbleMobileAccountView`, `RubbleMobileServices`, `RubbleAdAudience`, `RubbleMobileAdsBootstrap`의 계정/클라우드 선택, 개인정보 안내, 광고 연령·ATT/UMP 경계를 대조한다.
 - Rubble의 광고 연령대는 12세 이하, 13~15세, 16세 이상이다. 16세 미만은 광고 보호 신호와 Google 콘텐츠 제한을 적용한다. 미선택에서는 광고 요청을 시작하지 않는다. 연령 선택은 계정/클라우드 선택과 별개다.
 - 도미노의 18세 성인 경계, 별도 보호 저장 슬롯, 아동의 전체 온라인 차단, 보상형 광고·IAP·계정 광고 제거 혜택을 Rubble 정책에 복사하지 않았다.
@@ -14,9 +14,9 @@
 
 ## 확인과 한계
 
-- 기존 광고 후보 ff5fdf8b에서 자동 초기화 제거 마커의 적용 실패를 발견했다. 수정한 2a6e0d1의 Android APK 빌드·서명·CRC·SHA256 및 최종 매니페스트에서 GMA provider·Unity Ads initializer·AD_ID/AdServices 권한 제거와 측정 지연 true를 확인했다. 이후 배너 이벤트와 안전 영역 동기화를 보완한 c37b49b의 재빌드는 진행 중이다.
-- ff5fdf8b iOS Xcode 내보내기는 성공했지만 SPM/CocoaPods 혼합을 발견해, 2a6e0d1에서 광고 SDK를 CocoaPods로 통일했다. 최종 내보내기/Pod 해석 대조가 남았다. 서명 IPA·실제 iPhone 검증을 뜻하지 않는다.
-- A24는 `deviceLocked=1`, secure keyguard showing 상태라 게임·광고의 실제 표시를 확인하지 못했다. 앱은 force-stop, 화면 sleep을 확인했고 기기 lease를 반환했다. 광고 fill, 동의 창, 실제 네트워크 전송 0을 확인한 것으로 쓰지 않는다.
+- 최종 a1d5cb28 Android APK의 빌드·서명·CRC·SHA256과 실제 SDK/어댑터 클래스를 확인했다. 최종 매니페스트에서 GMA provider·Unity Ads initializer·AD_ID/AdServices 권한 제거와 측정 지연 true를 확인했다.
+- 최종 a1d5cb28 iOS Xcode 내보내기와 CocoaPods 해석이 성공했다. SDK·AdMob·Unity Ads 어댑터의 Podfile/Manifest.lock, SPM 중복 부재, 실제 앱 ID·측정 지연·ATT 설명을 대조했다. 서명 IPA·Xcode 링크·실제 iPhone 검증을 뜻하지 않는다.
+- 2026-11-12 A24에 최종 APK를 새로 설치해 한국어 화면, 미선택 상태, 16세 이상 선택·재진입 저장, 음량 0, 앱 복귀를 확인했다. 상단 잔상은 8초 녹화와 복귀 화면에서 재현되지 않았다. UMP는 해당 앱 ID의 동의 양식 미등록 오류를 반환했고 CanRequestAds=false로 광고 초기화를 중단했다. 정책 공개와 AdMob 메시지 등록 후 배너 송출 검증이 남았다. 앱 force-stop·화면 sleep을 확인하고 기기 lease를 반환했다. 광고 fill, 동의 창, 실제 네트워크 전송 0을 확인한 것으로 쓰지 않는다.
 - AdMob 두 신규 앱은 스토어 미연결/광고 게재 제한 상태다. 정책 URL과 기존 유럽 메시지의 대상 앱 추가는 공개 정책 게시 뒤 저장·재조회해야 한다.
 - Unity 조직 잠금의 구체적 원인은 미확인이다. 별도 사용자 대화에서 승인된 지원 문의를 보냈으며 복구 답변을 기다린다. 정책 페이지 작성으로 조직 복구나 Unity Ads 송출을 완료 처리하지 않는다.
 
