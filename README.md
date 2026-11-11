@@ -52,3 +52,5 @@ node tools/update-ratings.mjs
 환생 우주선 방치하기: [개인정보처리방침](reborn-starship-idle/privacy/). Google 로그인, 계정·저장, 분석·광고·구매와 삭제 요청을 안내한다. 앱인토스 전용 방침과 구분하며 홈페이지와 지원 페이지에서 연결한다.
 
 Domino Chain Tycoon: [개인정보처리방침·계정 삭제 안내](domino/privacy/). 보호 모드, Firebase 계정·선택형 이메일 로그인·클라우드 저장, 계정 제공 혜택, LevelPlay 중재 광고와 광고 제거 구매를 설명한다. 이번 변경의 네이티브 바이너리 대조·게시 조건은 [배포 검토 기록](docs/releases/domino-ads-policy-20261105.md)을 따른다.
+
+Rubble Kingdom: [개인정보처리방침·계정 삭제 안내](rubble/privacy/). 기기 저장·선택형 계정 연결, 광고용 연령 선택, LevelPlay 배너와 개인정보 선택을 설명한다. [게시 검토 기록](docs/releases/rubble-privacy-20261111.md)에서 실제 게임 구현과 배포 상태를 구분한다.
