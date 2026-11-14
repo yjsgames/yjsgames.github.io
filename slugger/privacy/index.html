@@ -12,9 +12,11 @@
 <h2>선택형 클라우드 저장</h2>
 <p>클라우드 저장은 선택 기능입니다. 게스트 진행은 기기에 남으며, 상점에서 기존 Slugger 계정을 연결한 뒤 사용자가 저장할 진행을 고릅니다. 계정의 Firebase UID와 게임 진행(재화, 강화, 환생, 구장, 투구·홈런 기록, 일일 도전·누적 업적, 마지막 저장 시각), 저장 버전 및 중복·충돌 방지 식별자를 Firebase Firestore와 Cloud Functions의 서울 리전에서 처리합니다. 구매 권리와 영수증 검증은 기존 구매 시스템에서 별도로 처리하며, 진행 클라우드 저장에는 비밀번호·인증 토큰·기기 고유 식별자·구매 권리·영수증 식별자를 넣지 않습니다.</p>
 <p>기기와 클라우드 진행이 다르면 사용자 선택을 받습니다. 클라우드 진행을 복구하기 전에는 기존 기기 진행을 기기에 백업합니다. 네트워크 실패는 새 계정이나 빈 진행으로 바꾸지 않으며, 미전송 진행은 기기에 보관하고 다시 전송합니다. 기기 진행 삭제는 클라우드 계정 삭제와 별개입니다.</p>
-<h2>광고 연령대와 보호 설정</h2>
-<p>광고를 이용하기 전에 만 13세 미만, 만 13~17세, 만 18세 이상 중 연령대를 직접 선택합니다. 기본 확정값은 없으며 생년월일이나 정확한 나이는 받지 않습니다. 선택한 구간은 기기에 저장하고, 선택 전에는 앱의 광고 요청을 시작하지 않습니다.</p>
-<p>만 18세 미만으로 선택하면 광고 제공업체에 연령 제한 보호 신호를 전달하고 광고 콘텐츠 등급을 제한합니다. 만 13세 미만에는 아동 대상 보호 신호를 적용하며 앱에서 새 구매 계정을 만드는 기능을 제공하지 않습니다. 구매와 기존 계정 연결은 보호자와 함께 진행해 주세요. 보호 대상에게 iOS 추적 허용 창을 요청하지 않습니다.</p>
+<h2>만 13세 이상 이용과 연령 보호</h2>
+<p>Slugger Park는 만 13세 이상을 대상으로 합니다. 아래 새 기준은 시작 시 만 13세 이상 이용 확인 화면이 포함된 업데이트부터 적용됩니다. 이미 설치된 구버전의 처리 방식이 이 페이지 게시만으로 바뀌지는 않습니다.</p>
+<p>해당 업데이트에서는 만 13세 미만, 만 13~17세, 만 18세 이상 중 연령대를 직접 선택합니다. 기본 확정값은 없으며 생년월일이나 정확한 나이는 받지 않습니다. 선택한 구간은 기기에 저장합니다. 미선택 또는 만 13세 미만이면 게임 진입과 계정·플랫폼·광고 서비스 시작을 막습니다. 기존 만 13세 미만 저장값을 성인으로 바꾸거나 기존 게임 진행을 삭제하지 않습니다.</p>
+<p>만 13~17세에는 광고 제공업체에 연령 제한 보호 신호를 전달하고 광고 콘텐츠 등급을 제한하며, iOS 추적 허용 창을 요청하지 않습니다. 만 18세 이상으로 직접 선택한 경우에만 성인 광고 경로를 사용할 수 있습니다. 구매와 계정 연결은 보호자와 함께 진행해 주세요.</p>
+<p class="note">이전 광고 지원 버전: 광고 전 연령대를 선택하며, 미선택에서는 광고 요청을 시작하지 않습니다. 만 18세 미만에는 연령 제한 신호와 광고 콘텐츠 제한을 적용합니다. 만 13세 미만에는 아동 대상 보호 신호를 적용하고 새 구매 계정 가입을 제공하지 않습니다. 보호 대상에게 iOS 추적 허용 창을 요청하지 않습니다.</p>
 <h2>선택형 구매 계정</h2>
 <p>구매·복원을 위해 이메일과 비밀번호로 Firebase Authentication 계정을 만들거나 로그인할 수 있습니다. 이메일 주소, Firebase 사용자 ID, 인증·세션 토큰은 계정 인증, 복구와 구매 권리 확인에 사용합니다. 이메일과 비밀번호는 HTTPS로 Firebase에 전송하며 게임 진행 저장이나 앱 로그에 비밀번호를 기록하지 않습니다. 로그아웃은 기기의 인증 세션을 지우며 서버 계정 삭제나 스토어 환불을 뜻하지 않습니다.</p>
 <h2>인앱 결제와 구매 복원</h2>
@@ -39,7 +41,10 @@
 <p>This notice covers local progress, optional purchase accounts, in-app purchases and mobile ads. You can play without a purchase account. Availability depends on the app version, store or network approval, region and privacy choices.</p>
 <h2>Local progress and age protection</h2>
 <p>Progress, upgrades, rebirth and batting records, settings and your selected age group are stored on the device. Clearing app/device data can erase local progress. Authentication sessions and transaction proofs needed for purchase verification or retries may be stored in app-private storage.</p>
-<p>Before requesting ads, the app asks you to choose under 13, 13–17 or 18+. There is no confirmed default; we do not ask for your exact age or date of birth. Under-18 groups receive age-restriction signals and limited ad-content ratings. Under-13 users receive child-directed protection signals and cannot create a new purchase account in the app. A parent or guardian should manage purchases and existing-account sign-in. Protected users are not shown an iOS tracking request.</p>
+<p>Slugger Park is intended for players aged 13 or older. The new rules below apply starting with the update that includes a 13+ confirmation screen at startup. Publishing this page does not change how an already installed older version works.</p>
+<p>In that update, you explicitly choose under 13, 13–17 or 18+. There is no confirmed default; we do not ask for your exact age or date of birth. Only the selected group is stored locally. An unknown or under-13 selection blocks gameplay entry and the start of account, platform and advertising services. An existing under-13 choice is not converted to an adult choice, and age confirmation does not delete existing progress.</p>
+<p>Players aged 13–17 receive age-restriction signals and limited ad-content ratings, without an iOS tracking request. Only an explicit 18+ selection enables the adult advertising path. A parent or guardian should manage purchases and account connection.</p>
+<p class="note">Earlier ad-supported versions: an age selection is required before ad requests. Under-18 groups receive age-restriction signals and limited ad-content ratings. Under-13 users receive child-directed signals and cannot create a new purchase account. Protected users are not shown an iOS tracking request.</p>
 <h2>Optional cloud saving</h2>
 <p>Cloud saving is optional. Guest progress remains on the device. After connecting an existing Slugger account in Shop, the player chooses which progress to save. Firebase UID, game progress (currency, upgrades, prestige, stadium, pitch/home-run records, daily challenges/achievements and last-save time), save revisions and identifiers used to prevent duplicate/conflicting writes are processed by Firebase Firestore and Cloud Functions in Seoul, South Korea. Purchase rights and receipts continue to be verified separately. The progress cloud save excludes passwords, authentication tokens, unique device identifiers, purchase entitlements and receipt identifiers.</p>
 <p>When device and cloud progress differ, the player chooses which to use. Restoring cloud progress first backs up device progress locally. A network failure never creates a new account or empty progress; pending progress is retained on the device for retry. Deleting a device save is separate from deleting the cloud account.</p>
