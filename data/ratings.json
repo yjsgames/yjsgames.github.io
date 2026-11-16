@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-09",
+  "updatedAt": "2026-11-16",
   "recommend": {
     "minRating": 4,
     "minCount": 20
@@ -7,7 +7,7 @@
   "games": {
     "hero": {
       "rating": 4.71,
-      "count": 429,
+      "count": 431,
       "recommended": true,
       "stores": {
         "appStore": {
@@ -18,13 +18,13 @@
         "googlePlay": {
           "id": "com.yjsgames.dotknight",
           "rating": 4.73,
-          "count": 387
+          "count": 389
         }
       }
     },
     "forge": {
       "rating": 3.5,
-      "count": 31,
+      "count": 32,
       "recommended": false,
       "stores": {
         "appStore": {
@@ -35,7 +35,7 @@
         "googlePlay": {
           "id": "com.yjsgames.idleblade",
           "rating": 3.53,
-          "count": 29
+          "count": 30
         }
       }
     },
