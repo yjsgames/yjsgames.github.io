@@ -16,7 +16,7 @@ YJS Games 공식 홈페이지. GitHub Pages 가 `main` 브랜치 루트를 그�
 
 ## 게임 추가하기
 
-1. `assets/` 에 아이콘, `assets/screens/` 에 세로 스크린샷(긴 변 720px 안팎 JPG)을 넣는다.
+1. `assets/` 에 아이콘, `assets/screens/` 에 실제 게임 화면을 보여 주는 세로 스크린샷(긴 변 720px 안팎 JPG)을 넣는다. 한·영 상세에 각각 서로 다른 장면을 최소 5장 넣고, 언어 공용 이미지는 두 상세에서 함께 쓸 수 있다.
 2. `index.html` 의 게임 카드(`<article class="card" data-game="키">`)를 하나 복사해 고친다. `data-platform` 은 `mobile`, `web` 중 해당하는 것을 공백으로 나열한다(필터에 쓰인다).
 3. 스크립트의 `games` 에 같은 키로 한/영 상세(제목·태그·스크린샷·소개·특징)를, `i18n` 에 카드 문구를 추가한다.
 4. 스토어에 출시된 게임이면 `data/ratings-config.json` 의 `games` 에 스토어 ID 를 추가한다.
