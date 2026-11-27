@@ -9,6 +9,12 @@
     "hero": { "appStoreId": "6757685476", "googlePlayId": "com.yjsgames.dotknight" },
     "forge": { "appStoreId": "6760809332", "googlePlayId": "com.yjsgames.idleblade" },
     "starship": { "appStoreId": "6780450541", "googlePlayId": "com.yjsgames.idlebrick" },
-    "claw": { "appStoreId": "6810273077" }
+    "claw": { "appStoreId": "6810273077", "googlePlayId": "com.yjsgames.claw" },
+    "crossing": { "appStoreId": "6818467915", "googlePlayId": "com.yjsgames.road" },
+    "coloring": { "appStoreId": "6836326210" },
+    "domino": { "appStoreId": "6830942657" },
+    "gwangbu": { "appStoreId": "6823928230", "googlePlayId": "com.yjsgames.gwangbu" },
+    "hangook": { "appStoreId": "6823928480", "googlePlayId": "com.yjsgames.hansal" },
+    "mana": { "appStoreId": "6820291894", "googlePlayId": "com.yjsgames.manafortressrun" }
   }
 }
