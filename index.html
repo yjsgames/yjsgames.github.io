@@ -332,8 +332,8 @@ footer{padding:28px 0 40px;color:var(--dim);font-size:12.5px;text-align:center}
       <a href="https://play.google.com/store/apps/dev?id=8072419979734107576&amp;gl=KR" target="_blank" rel="noopener">
         <svg class="pf-ico" aria-hidden="true"><use href="#i-gp"/></svg>Google Play · Pocket Tycoon Games
       </a>
-      <a href="https://apps.apple.com/kr/developer/yangjin-lee/id1868279559" target="_blank" rel="noopener">
-        <svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg>App Store
+      <a id="ios-games-link" href="#games" data-ios-href="https://apps.apple.com/kr/developer/yangjin-lee/id1868279559">
+        <svg class="pf-ico" aria-hidden="true"><use href="#i-as"/></svg><span data-i18n="iosGames">iOS 게임</span>
       </a>
       <a href="https://yjsgames.itch.io/" target="_blank" rel="noopener"><svg class="pf-ico" aria-hidden="true"><use href="#i-itch"/></svg>itch.io</a>
     </nav>
@@ -484,7 +484,7 @@ footer{padding:28px 0 40px;color:var(--dim);font-size:12.5px;text-align:center}
       <article class="card reveal" data-game="claw" data-platform="mobile web">
         <div class="card-top">
           <div class="blur" style="background-image:url(assets/icon-claw-gallery.png)"></div>
-          <a class="platform-link" href="https://play.google.com/store/apps/details?id=com.yjsgames.claw&amp;gl=KR" data-ios-href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener" aria-label="Claw Gallery store page"><img src="assets/icon-claw-gallery.png" alt="Claw Gallery icon" width="92" height="92"></a>
+          <a class="platform-link" href="https://yjsgames.itch.io/claw-gallery" data-ios-href="https://apps.apple.com/kr/app/id6810273077" target="_blank" rel="noopener" aria-label="Claw Gallery store page"><img src="assets/icon-claw-gallery.png" alt="Claw Gallery icon" width="92" height="92"></a>
         </div>
         <div class="card-body">
           <h3 class="card-title" data-i18n="clawTitle">뽑아모아: 인형뽑기</h3>
@@ -623,6 +623,7 @@ const i18n={
     playOnItch:"itch.io에서 플레이",gameInfo:"게임 정보",
     gamesHeading:"게임",gamesIntro:"카드를 눌러 스크린샷과 상세 소개를 볼 수 있어요.",
     filterAll:"전체",filterMobile:"모바일",filterWeb:"브라우저",
+    iosGames:"iOS 게임",appStore:"App Store",
     moreInfo:"스크린샷 · 상세 보기",
     tagAction:"액션",tagCasual:"캐주얼",tagIdle:"방치형",tagDefense:"디펜스",tagEnhance:"강화",tagPuzzle:"퍼즐",
     coloringTitle:"색칠 산책",coloringDesc:"그림과 입체 모형을 색칠하고 내가 꾸민 숲과 미술관을 걷는 컬러링북.",
@@ -655,6 +656,7 @@ const i18n={
     playOnItch:"Play on itch.io",gameInfo:"Game info",
     gamesHeading:"Games",gamesIntro:"Open a card to see screenshots and the full description.",
     filterAll:"All",filterMobile:"Mobile",filterWeb:"Browser",
+    iosGames:"iOS games",appStore:"App Store",
     moreInfo:"Screenshots & details",
     tagAction:"Action",tagCasual:"Casual",tagIdle:"Idle",tagDefense:"Defense",tagEnhance:"Upgrade",tagPuzzle:"Puzzle",
     coloringTitle:"Color Stroll",coloringDesc:"Color drawings and 3D models, then walk through the forest and gallery you decorated.",
@@ -873,14 +875,19 @@ if("IntersectionObserver" in window){
   document.querySelectorAll(".reveal").forEach((el)=>el.classList.add("in"));
 }
 
+// iPhone·iPad에서는 개발자 페이지와 게임 아이콘을 App Store로 연결한다.
+const isAppleStoreDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1;
+const iosGamesLink=document.getElementById("ios-games-link");
+if(isAppleStoreDevice){
+  iosGamesLink.href=iosGamesLink.dataset.iosHref;
+  iosGamesLink.querySelector("[data-i18n]").dataset.i18n="appStore";
+  document.querySelectorAll(".platform-link[data-ios-href]").forEach((link)=>{link.href=link.dataset.iosHref;});
+}else{
+  iosGamesLink.addEventListener("click",()=>document.querySelector('[data-filter="all"]').click());
+}
+
 document.querySelectorAll("[data-lang-option]").forEach((b)=>b.addEventListener("click",()=>applyLanguage(b.dataset.langOption)));
 applyLanguage(readStoredLang()||((navigator.language||"").toLowerCase().startsWith("ko")?"ko":"en"));
-
-// iOS 기기에서는 아이콘 링크를 App Store 로
-const isAppleStoreDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1;
-if(isAppleStoreDevice){
-  document.querySelectorAll(".platform-link[data-ios-href]").forEach((link)=>{link.href=link.dataset.iosHref;});
-}
 </script>
 </body>
 </html>
